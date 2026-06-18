@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NODE Terms and Conditions and Privacy Policy — Newman & Associates">
+  <title>NODE — Terms & Conditions | Newman & Associates</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:  #1B3A6B;
+      --navy2: #0D2040;
+      --gold:  #C9A84C;
+      --gold2: #E8C96A;
+      --white: #FFFFFF;
+      --off:   #F8F7F5;
+      --mid:   #6B6B6B;
+      --dark:  #1A1A1A;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--navy2);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      background: rgba(13,32,64,0.97);
+      backdrop-filter: blur(16px);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+    }
+    .nav-brand span { color: var(--gold); }
+    .back-link {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 0.7; }
+
+    /* HERO */
+    .page-hero {
+      background: linear-gradient(180deg, #0D2040 0%, #162233 100%);
+      padding: 48px 24px 40px;
+      text-align: center;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .page-hero-tag {
+      font-size: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .page-hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .page-hero-sub {
+      font-size: 0.62rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.05em;
+    }
+
+    /* TABS */
+    .tabs {
+      display: flex;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky;
+      top: 57px;
+      z-index: 99;
+    }
+    .tab {
+      flex: 1;
+      padding: 14px 10px;
+      text-align: center;
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .tab.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+    }
+    .section-block {
+      margin-bottom: 24px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 2px;
+      padding: 20px;
+    }
+    .section-block:last-child { margin-bottom: 0; }
+    .section-num {
+      font-size: 0.45rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .section-body {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.9;
+      white-space: pre-line;
+    }
+    .section-body strong { color: rgba(255,255,255,0.8); }
+
+    /* TAB PANELS */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* EFFECTIVE DATE */
+    .effective {
+      font-size: 0.55rem;
+      color: rgba(255,255,255,0.2);
+      text-align: center;
+      margin-bottom: 28px;
+      letter-spacing: 0.08em;
+    }
+
+    /* FOOTER */
+    .page-footer {
+      background: rgba(0,0,0,0.3);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 24px;
+      text-align: center;
+    }
+    .page-footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 6px;
+    }
+    .page-footer-copy {
+      font-size: 0.48rem;
+      color: rgba(255,255,255,0.15);
+      letter-spacing: 0.08em;
+    }
+    .gold-rule {
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold));
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-brand">Newman <span>&</span> Associates</a>
+    <a href="index.html#node" class="back-link">
+      ← Back to NODE
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="page-hero">
+    <div style="display:inline-flex;align-items:center;justify-content:center;
+      width:48px;height:48px;border:1px solid rgba(201,168,76,0.3);
+      border-radius:50%;margin-bottom:14px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="#C9A84C" stroke-width="1.5">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+        <circle cx="12" cy="9" r="2.5"/>
+      </svg>
+    </div>
+    <div class="page-hero-tag">NODE · Legal</div>
+    <h1 class="page-hero-title">Terms, Conditions<br>&amp; Privacy Policy</h1>
+    <p class="page-hero-sub">Effective 1 January 2026 · Newman &amp; Associates</p>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('terms', this)">
+      Terms &amp; Conditions
+    </div>
+    <div class="tab" onclick="switchTab('privacy', this)">
+      Privacy Policy
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- TERMS TAB -->
+    <div class="tab-panel active" id="tab-terms">
+      <p class="effective">Last updated: 1 January 2026</p>
+
+      <div class="section-block">
+        <div class="section-num">Section 01</div>
+        <div class="section-title">Introduction</div>
+        <div class="section-body">NODE is a community marketplace platform operated by Newman &amp; Associates, Malmesbury, Western Cape, South Africa.
+
+By downloading, registering on or using the NODE app, you agree to these Terms and Conditions in full. These terms govern your use of the NODE platform including the mobile app, admin dashboard and any related services.
+
+If you do not agree to these terms, do not use NODE.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 02</div>
+        <div class="section-title">Service Provider Responsibilities</div>
+        <div class="section-body">Service Providers registered on NODE must:
+
+• Provide accurate, truthful and up-to-date information at all times.
+• Maintain professional conduct in all interactions with consumers.
+• Deliver services as described on their NODE profile.
+• Notify Newman &amp; Associates of any changes to services, availability or contact details.
+• Not misrepresent qualifications, experience or service offerings.
+• Honour bookings and commitments made through the platform.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 03</div>
+        <div class="section-title">Profile Management</div>
+        <div class="section-body">Newman &amp; Associates reserves the right to:
+
+• Review and approve all SP profiles before they go live.
+• Edit, suspend or permanently remove any SP profile that violates NODE standards.
+• Remove profiles containing inaccurate, misleading or offensive information.
+• Suspend accounts pending investigation of consumer complaints.
+
+All profiles are subject to a review period before activation. Activation occurs at the discretion of Newman &amp; Associates.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 04</div>
+        <div class="section-title">Consumer Responsibilities</div>
+        <div class="section-body">Consumers using NODE must:
+
+• Use the platform in good faith and for legitimate purposes only.
+• Treat service providers with respect and professionalism.
+• Submit honest and accurate reviews based on actual experience.
+• Not use the messaging system for spam, harassment or offensive content.
+• Report any concerns or disputes to Newman &amp; Associates promptly.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 05</div>
+        <div class="section-title">Reviews &amp; Ratings</div>
+        <div class="section-body">• Consumer reviews are submitted through NODE and moderated by admin.
+• 4 and 5 star reviews are published immediately.
+• 1, 2 and 3 star reviews are reviewed by admin before publication.
+• Service Providers may not solicit, incentivise or fabricate reviews.
+• Disputed reviews must be reported to Newman &amp; Associates.
+• Repeated negative reviews without resolution may result in account suspension.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 06</div>
+        <div class="section-title">Payments &amp; Transactions</div>
+        <div class="section-body">• NODE is a marketplace platform only — we connect consumers with SPs.
+• Newman &amp; Associates does not process, hold or guarantee any payments.
+• All payment disputes are between the consumer and SP directly.
+• NODE accepts no liability for non-payment, overcharging or payment fraud.
+• SPs are responsible for their own pricing, invoicing and tax obligations.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 07</div>
+        <div class="section-title">Account Suspension &amp; Termination</div>
+        <div class="section-body">Accounts may be suspended or permanently removed for:
+
+• Providing false or misleading information during registration.
+• Repeated consumer complaints that cannot be resolved.
+• Unprofessional conduct toward consumers or NODE staff.
+• Failure to honour service commitments.
+• Violation of any of these Terms and Conditions.
+
+Newman &amp; Associates will attempt to notify the SP before suspension except in cases of serious misconduct.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 08</div>
+        <div class="section-title">Intellectual Property</div>
+        <div class="section-body">• The NODE name, logo, app design and platform are the intellectual property of Newman &amp; Associates.
+• Service Providers may not reproduce, copy or distribute NODE branding without written permission.
+• Profile content submitted by SPs remains the property of the SP but a licence is granted to NODE to display it on the platform.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 09</div>
+        <div class="section-title">Limitation of Liability</div>
+        <div class="section-body">• Newman &amp; Associates is not liable for any loss, damage or injury arising from services provided by SPs listed on NODE.
+• Newman &amp; Associates does not guarantee the quality, safety or legality of services offered by SPs.
+• Consumers engage with SPs entirely at their own risk.
+• NODE provides a platform only and does not employ, endorse or warrant any SP.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 10</div>
+        <div class="section-title">Changes to These Terms</div>
+        <div class="section-body">Newman &amp; Associates reserves the right to update these Terms and Conditions at any time.
+
+Service Providers and consumers will be notified of material changes via the NODE app or by email. Continued use of the platform after notification constitutes acceptance of the updated terms.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 11</div>
+        <div class="section-title">Governing Law &amp; Contact</div>
+        <div class="section-body">These Terms and Conditions are governed by the laws of the Republic of South Africa.
+
+For queries, complaints or disputes:
+
+<strong>Newman &amp; Associates</strong>
+Email: info@newmanassociates.co.za
+WhatsApp: +27 76 199 9072
+Address: Malmesbury, Western Cape, South Africa</div>
+      </div>
+    </div>
+
+    <!-- PRIVACY TAB -->
+    <div class="tab-panel" id="tab-privacy">
+      <p class="effective">Last updated: 1 January 2026</p>
+
+      <div class="section-block">
+        <div class="section-num">Section 01</div>
+        <div class="section-title">Introduction</div>
+        <div class="section-body">Newman &amp; Associates ("we", "us", "our") operates the NODE platform. This Privacy Policy explains how we collect, use, store and protect your personal information in accordance with the Protection of Personal Information Act (POPIA) of South Africa.
+
+By using NODE you consent to the collection and use of your information as described in this policy.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 02</div>
+        <div class="section-title">Information We Collect</div>
+        <div class="section-body"><strong>From Service Providers:</strong>
+• Full name, ID number, date of birth, gender
+• Contact details — phone, WhatsApp, email
+• Physical and postal address
+• Business registration details — CIPC, SARS, CSD
+• Next of kin details
+• Profile photo and business information
+• Operating hours and service details
+• Payment methods accepted
+
+<strong>From Consumers:</strong>
+• Phone number (for OTP verification)
+• Town / location preference
+• Favourite SPs and messaging history
+
+<strong>Automatically collected:</strong>
+• App usage data and interaction logs
+• Device information (for app performance)</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 03</div>
+        <div class="section-title">How We Use Your Information</div>
+        <div class="section-body">We use your information to:
+
+• Create and manage your NODE profile
+• Verify your identity and business credentials
+• Display your profile to consumers searching for services
+• Send notifications about your account, reviews and messages
+• Improve the NODE platform and user experience
+• Comply with legal obligations
+
+We do NOT use your information for:
+• Unsolicited marketing from third parties
+• Sale or rental to any external organisation
+• Any purpose not stated in this policy</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 04</div>
+        <div class="section-title">How We Store &amp; Protect Your Data</div>
+        <div class="section-body">• All data is stored in a secure, encrypted cloud database (Google Firebase).
+• Access is restricted to authorised Newman &amp; Associates administrators only.
+• Sensitive information (ID numbers, next of kin details) is never displayed publicly.
+• We use industry-standard security measures to protect against unauthorised access.
+• Regular backups are maintained to prevent data loss.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 05</div>
+        <div class="section-title">Sharing of Information</div>
+        <div class="section-body">We share your information only in these limited circumstances:
+
+• <strong>Public profile:</strong> Your business name, service description, location, category, rating and operating hours are visible to consumers on NODE.
+• <strong>Legal requirement:</strong> If required by law or court order.
+• <strong>Business transfer:</strong> If Newman &amp; Associates is acquired or merged.
+
+We never sell your personal information to third parties.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 06</div>
+        <div class="section-title">Your Rights Under POPIA</div>
+        <div class="section-body">As a data subject under POPIA you have the right to:
+
+• Access the personal information we hold about you
+• Request correction of inaccurate information
+• Request deletion of your information (subject to legal obligations)
+• Object to the processing of your information
+• Lodge a complaint with the Information Regulator of South Africa
+
+To exercise any of these rights contact us at info@newmanassociates.co.za</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 07</div>
+        <div class="section-title">Retention of Data</div>
+        <div class="section-body">• Active SP profiles are retained for as long as the SP remains registered on NODE.
+• Inactive profiles are retained for 3 years after the last activity.
+• Consumer messaging data is retained for 12 months.
+• Financial and compliance records are retained as required by South African law (minimum 5 years).</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 08</div>
+        <div class="section-title">Cookies &amp; Tracking</div>
+        <div class="section-body">The NODE mobile app does not use browser cookies.
+
+Basic usage analytics may be collected to improve app performance. This data is anonymised and not linked to individual users.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 09</div>
+        <div class="section-title">Children</div>
+        <div class="section-body">NODE is intended for users 18 years and older.
+
+We do not knowingly collect personal information from persons under 18. If we become aware that a minor has registered, their account will be removed immediately.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 10</div>
+        <div class="section-title">Changes to This Policy</div>
+        <div class="section-body">We may update this Privacy Policy from time to time. Material changes will be communicated via the NODE app or email.
+
+Continued use of NODE after notification constitutes acceptance of the updated policy.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-num">Section 11</div>
+        <div class="section-title">Contact &amp; Information Regulator</div>
+        <div class="section-body"><strong>Newman &amp; Associates</strong>
+Email: info@newmanassociates.co.za
+WhatsApp: +27 76 199 9072
+Malmesbury, Western Cape, South Africa
+
+<strong>Information Regulator of South Africa</strong>
+Email: inforeg@justice.gov.za
+Website: www.justice.gov.za/inforeg</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <div class="page-footer-brand">Newman &amp; Associates</div>
+    <div class="page-footer-copy">
+      © 2026 Newman &amp; Associates · Malmesbury, Western Cape ·
+      <a href="index.html" style="color:rgba(255,255,255,0.2);text-decoration:none;">
+        newmanassociates.co.za
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tab, el) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'))
+      el.classList.add('active')
+      document.getElementById('tab-' + tab).classList.add('active')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  </script>
+
+</body>
+</html>
