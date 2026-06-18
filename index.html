@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Newman & Associates — Business Registration, Compliance, People Strategy and Operations Consulting. Malmesbury, Western Cape, South Africa.">
+  <meta name="theme-color" content="#1B3A6B">
+  <title>Newman & Associates</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:  #1B3A6B;
+      --navy2: #0D2040;
+      --gold:  #C9A84C;
+      --gold2: #E8C96A;
+      --white: #FFFFFF;
+      --off:   #F8F7F5;
+      --light: #EAF0FB;
+      --mid:   #6B6B6B;
+      --dark:  #1A1A1A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── LOADER ── */
+    #loader {
+      position: fixed; inset: 0;
+      background: var(--navy2);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 300;
+      color: var(--white); letter-spacing: 0.15em;
+    }
+    .loader-sub {
+      font-size: 0.6rem; font-weight: 500;
+      color: var(--gold); letter-spacing: 0.3em;
+      text-transform: uppercase; margin-top: 6px;
+    }
+    .loader-line {
+      width: 0; height: 1px;
+      background: var(--gold); margin-top: 24px;
+      animation: lineGrow 1.2s ease forwards 0.3s;
+    }
+    @keyframes lineGrow { to { width: 120px; } }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(16px);
+      padding: 0 20px;
+      height: auto; min-height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      transition: height 0.3s ease, box-shadow 0.3s ease;
+    }
+    nav.scrolled {
+      height: auto; min-height: 56px;
+      box-shadow: 0 2px 24px rgba(27,58,107,0.08);
+    }
+    .nav-brand {
+      display: flex; flex-direction: column;
+      text-decoration: none; gap: 1px;
+    }
+    /* ENLARGED NEWMAN */
+    .nav-brand-main {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 600;
+      color: var(--navy); letter-spacing: 0.08em;
+      line-height: 1;
+    }
+    .nav-brand-sub {
+      font-size: 0.48rem; font-weight: 500;
+      color: var(--gold); letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+    .nav-toggle {
+      width: 40px; height: 40px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 6px; cursor: pointer; background: none; border: none;
+    }
+    .nav-toggle span {
+      display: block; width: 24px; height: 1.5px;
+      background: var(--navy);
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* Mobile menu */
+    .nav-menu {
+      position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+      background: var(--navy2);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 2.5rem;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.77,0,0.175,1);
+      z-index: 99;
+    }
+    .nav-menu.open { transform: translateX(0); }
+    .nav-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 300;
+      color: var(--white); text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+    .nav-menu a:hover { color: var(--gold); }
+    .nav-menu-line {
+      width: 40px; height: 1px;
+      background: rgba(201,168,76,0.25);
+    }
+
+    /* ── HERO — full viewport, content bottom-anchored ── */
+    #hero {
+      height: 100svh;
+      background: var(--navy2);
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      position: relative; overflow: hidden;
+      padding-top: 64px;
+    }
+    .hero-circle-1 {
+      position: absolute; top: -80px; right: -80px;
+      width: 280px; height: 280px;
+      border: 1px solid rgba(201,168,76,0.1);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero-circle-2 {
+      position: absolute; top: 40px; right: 0;
+      width: 160px; height: 160px;
+      border: 1px solid rgba(201,168,76,0.07);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero-circle-3 {
+      position: absolute; bottom: 120px; left: -60px;
+      width: 200px; height: 200px;
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 50%; pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 24px 0;
+      max-width: 480px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.5rem; font-weight: 600;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 5px 12px;
+      margin-bottom: 20px;
+    }
+
+    /* HERO HEADLINE — big and dominant */
+    .hero-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 12vw, 4.4rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .hero-headline em { color: var(--gold); font-style: italic; }
+
+    /* SUBTEXT — noticeably smaller than headline */
+    .hero-sub {
+      font-size: 0.55rem; font-weight: 400;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 28px;
+    }
+
+    /* PRIMARY CTA only — WhatsApp */
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--gold);
+      color: var(--navy2);
+      font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 14px 24px;
+      text-decoration: none;
+      transition: background 0.2s;
+      margin-bottom: 32px;
+    }
+    .hero-cta:hover { background: var(--gold2); }
+
+    /* EXPLORE trigger */
+    .explore-trigger {
+      display: flex; flex-direction: column;
+      align-items: flex-start; gap: 8px;
+      cursor: pointer; padding-bottom: 32px;
+    }
+    .explore-label {
+      font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      transition: color 0.3s;
+    }
+    .explore-trigger:hover .explore-label { color: var(--gold); }
+    .explore-line {
+      width: 28px; height: 1px;
+      background: rgba(201,168,76,0.4);
+      transition: width 0.3s ease;
+    }
+    .explore-trigger:hover .explore-line { width: 48px; background: var(--gold); }
+    .explore-arrow {
+      width: 32px; height: 32px;
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .explore-trigger:hover .explore-arrow {
+      border-color: var(--gold);
+      transform: translateY(3px);
+    }
+    .explore-arrow svg {
+      width: 14px; height: 14px;
+      stroke: rgba(201,168,76,0.6); fill: none; stroke-width: 1.5;
+    }
+    .explore-trigger:hover .explore-arrow svg { stroke: var(--gold); }
+
+    /* ── SITE CONTENT (hidden until EXPLORE tapped) ── */
+    #site-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #site-content.revealed { max-height: 99999px; }
+
+    /* ── GOLD RULE ── */
+    .gold-rule {
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold));
+    }
+
+    /* ── SECTIONS ── */
+    section { width: 100%; }
+    .container { max-width: 480px; margin: 0 auto; padding: 0 24px; }
+
+    .section-label {
+      font-size: 0.55rem; font-weight: 600;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 400;
+      color: var(--navy); line-height: 1.3;
+      margin-bottom: 16px;
+    }
+    .section-body {
+      font-size: 0.78rem; font-weight: 400;
+      color: var(--mid); line-height: 1.8;
+    }
+
+    /* ── INTRO ── */
+    #intro { background: var(--off); padding: 56px 0; }
+
+    /* ── STATS ── */
+    #stats { background: var(--navy); padding: 40px 0; }
+    .stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      max-width: 480px; margin: 0 auto;
+    }
+    .stat-item { text-align: center; padding: 12px 4px; }
+    .stat-item + .stat-item { border-left: 1px solid rgba(255,255,255,0.08); }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 300;
+      color: var(--gold); line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.5rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-top: 6px;
+    }
+    /* LEVEL 1 — clear readable badge */
+    .stat-level {
+      display: inline-block;
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--navy2);
+      background: var(--gold);
+      padding: 4px 10px;
+      line-height: 1;
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--white); padding: 56px 0; }
+    .service-block { margin-bottom: 36px; }
+    .service-block:last-child { margin-bottom: 0; }
+    .service-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 0; cursor: pointer;
+      padding: 4px 0;
+    }
+    .service-bar { width: 4px; height: 44px; flex-shrink: 0; }
+    .service-bar.navy { background: var(--navy); }
+    .service-bar.gold { background: var(--gold); }
+    .service-title {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--navy);
+    }
+    .service-subtitle {
+      font-size: 0.55rem; font-weight: 400;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); margin-top: 3px;
+    }
+    .service-chevron {
+      margin-left: auto; font-size: 1rem; color: var(--gold);
+      transition: transform 0.3s ease;
+    }
+    .service-chevron.open { transform: rotate(180deg); }
+    .service-items {
+      margin-left: 18px; overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s ease;
+    }
+    .service-items.open { max-height: 1200px; }
+    .service-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 9px 0;
+      border-bottom: 0.5px solid rgba(27,58,107,0.07);
+    }
+    .service-item:last-child { border-bottom: none; }
+    .service-dot { width: 5px; height: 5px; flex-shrink: 0; margin-top: 6px; }
+    .service-dot.navy { background: var(--navy); }
+    .service-dot.gold { background: var(--gold); }
+    .service-item-text {
+      font-size: 0.73rem; font-weight: 400;
+      color: var(--dark); line-height: 1.5;
+    }
+
+    /* ── WHY US ── */
+    #why { background: var(--off); padding: 56px 0; }
+    .why-card {
+      background: var(--white); padding: 20px 18px;
+      margin-bottom: 12px;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .why-card:last-child { margin-bottom: 0; }
+    .why-icon {
+      width: 36px; height: 36px;
+      background: var(--light);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .why-icon svg { width: 18px; height: 18px; stroke: var(--navy); fill: none; stroke-width: 1.5; }
+    .why-card-title {
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 5px;
+    }
+    .why-card-text {
+      font-size: 0.68rem; color: var(--mid); line-height: 1.7;
+    }
+    .credentials {
+      display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px;
+    }
+    .credential {
+      font-size: 0.52rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 10px;
+    }
+    .credential.light { background: var(--light); color: var(--navy); }
+    .credential.dark  { background: var(--navy); color: var(--gold); }
+
+    /* ── PACKAGES ── */
+    #packages { background: var(--white); padding: 56px 0; }
+    .package-card {
+      border: 1px solid rgba(27,58,107,0.12);
+      padding: 24px 20px; margin-bottom: 14px;
+      position: relative;
+    }
+    .package-card.featured { border-color: var(--gold); border-width: 2px; }
+    .package-badge {
+      position: absolute; top: -10px; left: 20px;
+      background: var(--gold);
+      font-size: 0.5rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--navy2); padding: 3px 12px;
+    }
+    .package-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 400;
+      color: var(--navy); margin-bottom: 4px;
+    }
+    .package-desc {
+      font-size: 0.65rem; color: var(--mid);
+      line-height: 1.6; margin-bottom: 14px;
+    }
+    .package-includes { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+    .package-include {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.65rem; color: var(--dark);
+    }
+    .package-check {
+      width: 14px; height: 14px; background: var(--light);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .package-check svg { width: 8px; height: 8px; stroke: var(--navy); fill: none; stroke-width: 2.5; }
+    .package-cta {
+      display: block; text-align: center;
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 13px; text-decoration: none; transition: all 0.2s;
+    }
+    .package-cta.primary { background: var(--navy); color: var(--white); }
+    .package-cta.outline { border: 1px solid var(--navy); color: var(--navy); }
+    .package-cta:hover { opacity: 0.82; }
+
+    /* ── CTA ── */
+    #cta { background: var(--navy2); padding: 64px 0; text-align: center; }
+    .cta-label {
+      font-size: 0.55rem; font-weight: 600;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem; font-weight: 300;
+      color: var(--white); line-height: 1.2; margin-bottom: 10px;
+    }
+    .cta-sub {
+      font-size: 0.68rem; color: rgba(255,255,255,0.4);
+      margin-bottom: 32px; line-height: 1.7;
+    }
+    .cta-buttons { display: flex; flex-direction: column; gap: 14px; align-items: center; }
+    .btn-whatsapp {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--gold); color: var(--navy2);
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 16px 32px; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-whatsapp:hover { background: var(--gold2); }
+    .cta-email {
+      font-size: 0.65rem; color: rgba(255,255,255,0.35);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .cta-email:hover { color: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy2);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 32px 24px 40px;
+    }
+    .footer-inner { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+    .footer-brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 400;
+      color: var(--white); letter-spacing: 0.08em;
+    }
+    .footer-brand-tag {
+      font-size: 0.52rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold); margin-top: 4px;
+    }
+    .footer-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .footer-link {
+      font-size: 0.65rem; color: rgba(255,255,255,0.35);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-link:hover { color: var(--gold); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-copy { font-size: 0.52rem; color: rgba(255,255,255,0.2); }
+    .footer-creds { display: flex; gap: 6px; }
+    .footer-cred {
+      font-size: 0.48rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: rgba(201,168,76,0.1);
+      color: var(--gold); padding: 3px 8px;
+    }
+
+    /* ── FADE IN ── */
+    .fade-up {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    
+    <div class="loader-name">NEWMAN</div>
+    <div class="loader-sub">& Associates</div>
+    <div class="loader-line"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav id="nav" style="background:#FFFFFF;height:auto;min-height:64px;padding:12px 16px 12px 16px;box-shadow:0 1px 8px rgba(13,32,64,0.10);">
+    <a href="#" style="display:block;flex:1;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 280" style="width:100%;max-width:360px;height:auto;display:block;" aria-label="Newman &amp; Associates">
+  <defs>
+    <linearGradient id="nvG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1B3A6B"/><stop offset="100%" style="stop-color:#0D2040"/></linearGradient>
+    <linearGradient id="gdG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#C9A84C"/><stop offset="50%" style="stop-color:#E8C96A"/><stop offset="100%" style="stop-color:#C9A84C"/></linearGradient>
+    <filter id="sf"><feDropShadow dx="1" dy="2" stdDeviation="4" flood-color="#0D2040" flood-opacity="0.2"/></filter>
+  </defs>
+  <path d="M 30 24 L 148 24 L 148 188 L 89 228 L 30 188 Z" fill="url(#nvG)" filter="url(#sf)"/>
+  <path d="M 30 24 L 148 24 L 148 188 L 89 228 L 30 188 Z" fill="none" stroke="url(#gdG)" stroke-width="2.5"/>
+  <path d="M 40 34 L 138 34 L 138 182 L 89 218 L 40 182 Z" fill="none" stroke="url(#gdG)" stroke-width="1.2" opacity="0.6"/>
+  <rect x="54" y="60" width="16" height="78" fill="#FFFFFF" rx="1.5"/>
+  <rect x="108" y="60" width="16" height="78" fill="#FFFFFF" rx="1.5"/>
+  <polygon points="54,60 70,60 124,138 108,138" fill="#FFFFFF"/>
+  <rect x="54" y="150" width="70" height="3.5" fill="url(#gdG)" rx="1.5"/>
+  <polygon points="89,170 97,178 89,186 81,178" fill="none" stroke="url(#gdG)" stroke-width="1.8" opacity="0.8"/>
+  <rect x="172" y="24" width="2.5" height="200" fill="url(#gdG)" rx="1.2"/>
+  <text x="200" y="140" font-family="Georgia,'Times New Roman',serif" font-size="96" font-weight="bold" fill="#1B3A6B" letter-spacing="6">NEWMAN</text>
+  <text x="202" y="188" font-family="Georgia,'Times New Roman',serif" font-size="34" fill="#1B3A6B" letter-spacing="14">&amp; ASSOCIATES</text>
+  <rect x="200" y="200" width="636" height="2.5" fill="url(#gdG)" rx="1.2"/>
+  <text x="202" y="224" font-family="Georgia,'Times New Roman',serif" font-size="15" font-style="italic" fill="#4A5568" letter-spacing="2.5">Compliance  ·  Consultation  ·  People Strategy  ·  Operations</text>
+  <line x1="780" y1="18" x2="848" y2="18" stroke="#C9A84C" stroke-width="1.5" opacity="0.65"/>
+  <line x1="848" y1="18" x2="848" y2="68" stroke="#C9A84C" stroke-width="1.5" opacity="0.65"/>
+  <line x1="18" y1="262" x2="18" y2="212" stroke="#C9A84C" stroke-width="1.5" opacity="0.45"/>
+  <line x1="18" y1="262" x2="68" y2="262" stroke="#C9A84C" stroke-width="1.5" opacity="0.45"/>
+</svg>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" style="flex-shrink:0;align-self:center;">
+      <span style="background:#1B3A6B;"></span><span style="background:#1B3A6B;"></span><span style="background:#1B3A6B;"></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="nav-menu" id="navMenu">
+    <a href="#intro" onclick="closeMenu()">About</a>
+    <div class="nav-menu-line"></div>
+    <a href="#services" onclick="closeMenu()">Services</a>
+    <div class="nav-menu-line"></div>
+    <a href="#packages" onclick="closeMenu()">Packages</a>
+    <div class="nav-menu-line"></div>
+    <a href="#node" onclick="closeMenu()">NODE</a>
+    <div class="nav-menu-line"></div>
+    <a href="#cta" onclick="closeMenu()">Contact</a>
+  </div>
+
+  <!-- HERO — full viewport only -->
+  <section id="hero">
+    <div class="hero-circle-1"></div>
+    <div class="hero-circle-2"></div>
+    <div class="hero-circle-3"></div>
+
+    <div class="hero-content" style="text-align:center;">
+      <!-- Tag — smaller -->
+      <div class="hero-tag" style="display:inline-block;">Malmesbury · Western Cape</div>
+
+      <!-- Headline — big and dominant -->
+      <h1 class="hero-headline">
+        We Launch.<br>
+        We Protect.<br>
+        <em>We Grow.</em>
+      </h1>
+
+      <!-- Sub — noticeably smaller -->
+      <p class="hero-sub">Business Consulting · South Africa</p>
+
+      <!-- WhatsApp CTA only -->
+      <a href="https://wa.me/27761999072" class="hero-cta" style="display:inline-flex;margin:0 auto;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Ask Me
+      </a>
+
+      <!-- EXPLORE trigger -->
+      <div class="explore-trigger" id="exploreTrigger" onclick="revealSite()" style="align-items:center;margin-top:48px;">
+        <div class="explore-label">Explore</div>
+        <div class="explore-line"></div>
+        <div class="explore-arrow">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REST OF SITE — revealed on EXPLORE tap -->
+  <div id="site-content">
+
+    <!-- GOLD RULE -->
+    <div class="gold-rule"></div>
+
+    <!-- INTRO -->
+    <section id="intro">
+      <div class="container fade-up">
+        <p class="section-label">Who We Are</p>
+        <h2 class="section-title">Your business deserves a strong foundation.</h2>
+        <p class="section-body" style="font-style:italic;font-size:0.85rem;color:var(--navy);font-weight:600;margin-bottom:10px;">Your dream deserves more than an idea. It starts with one step — We help you take it. Don't wait. Start building. We see what you could become even before you see it yourself.</p>
+        <p class="section-body">Newman &amp; Associates is dedicated to helping South African small businesses start right, stay compliant and grow with confidence.</p>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section id="stats">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-num">13+</div>
+          <div class="stat-label">Yrs Experience</div>
+        </div>
+        <div class="stat-item">
+          <div style="display:flex;justify-content:center;align-items:center;height:100%;padding:8px 0;">
+            <div style="text-align:center;">
+              <div class="stat-level">LEVEL 1</div>
+              <div style="font-size:0.62rem;font-weight:700;color:var(--gold2);margin-top:3px;letter-spacing:0.06em;">135%</div>
+              <div class="stat-label" style="margin-top:4px;">BBBEE Rating</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">WC</div>
+          <div class="stat-label">Western Cape</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="container">
+        <p class="section-label fade-up">What We Do</p>
+        <h2 class="section-title fade-up">Four pillars.<br>One partner.</h2>
+        <p class="section-body fade-up" style="margin-bottom:36px;">Tap any service to see what is included.</p>
+
+        <!-- COMPLIANCE -->
+        <div class="service-block fade-up">
+          <div class="service-header" onclick="toggleService('compliance')">
+            <div class="service-bar navy"></div>
+            <div>
+              <div class="service-title">Compliance</div>
+              <div class="service-subtitle">Registration & Certification</div>
+            </div>
+            <div class="service-chevron" id="chevron-compliance">&#8964;</div>
+          </div>
+          <div class="service-items" id="items-compliance">
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">CIPC Company Registration (Pty Ltd, NPC, Cooperative)</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">BBBEE EME Affidavit & Certificate</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">SARS Tax Registration & Tax Clearance Pin</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">CSD — Central Supplier Database Registration</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">UIF & COIDA Registration</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">VAT Registration</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Annual Returns Filing</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Company Tax Filing on Behalf of Clients</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Accounting & Bookkeeping Support</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Company Logo Design</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Business Bank Account Facilitation</div></div>
+          </div>
+        </div>
+
+        <!-- CONSULTATION -->
+        <div class="service-block fade-up">
+          <div class="service-header" onclick="toggleService('consultation')">
+            <div class="service-bar gold"></div>
+            <div>
+              <div class="service-title">Consultation</div>
+              <div class="service-subtitle">Planning & Funding</div>
+            </div>
+            <div class="service-chevron" id="chevron-consultation">&#8964;</div>
+          </div>
+          <div class="service-items" id="items-consultation">
+            <div class="service-item"><div class="service-dot navy"></div><div class="service-item-text">Business Plan Writing — Basic, Standard & Fundable</div></div>
+            <div class="service-item"><div class="service-dot navy"></div><div class="service-item-text">Funding Applications — SEDA, SEFA, NEF, NYDA, IDC</div></div>
+            <div class="service-item"><div class="service-dot navy"></div><div class="service-item-text">Company Profile Writing</div></div>
+            <div class="service-item"><div class="service-dot navy"></div><div class="service-item-text">Tender Document Preparation</div></div>
+            <div class="service-item"><div class="service-dot navy"></div><div class="service-item-text">Strategic Business Advisory</div></div>
+            <div class="service-item"><div class="service-dot navy"></div><div class="service-item-text">Tender Readiness Assessment</div></div>
+            <div class="service-item"><div class="service-dot navy"></div><div class="service-item-text">Tender Compilation & Submission Support</div></div>
+            <div class="service-item"><div class="service-dot navy"></div><div class="service-item-text">Monthly Consulting Retainer</div></div>
+          </div>
+        </div>
+
+        <!-- PEOPLE STRATEGY -->
+        <div class="service-block fade-up">
+          <div class="service-header" onclick="toggleService('people')">
+            <div class="service-bar navy"></div>
+            <div>
+              <div class="service-title">People Strategy</div>
+              <div class="service-subtitle">HR, Talent & Skills</div>
+            </div>
+            <div class="service-chevron" id="chevron-people">&#8964;</div>
+          </div>
+          <div class="service-items" id="items-people">
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Employment Contracts (BCEA Compliant)</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Time and Attendance Systems</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Payroll Setup and Management</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Staff Management Frameworks</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">HR Policies and Procedures</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Skills Development Support — WSP, ATR, SDL, Learnerships, Mandatory Grants</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">WIL Logbook Support</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Intern Placement and Sourcing</div></div>
+          </div>
+        </div>
+
+        <!-- OPERATIONS -->
+        <div class="service-block fade-up">
+          <div class="service-header" onclick="toggleService('operations')">
+            <div class="service-bar gold"></div>
+            <div>
+              <div class="service-title">Operations</div>
+              <div class="service-subtitle">Management, Digital & Supply</div>
+            </div>
+            <div class="service-chevron" id="chevron-operations">&#8964;</div>
+          </div>
+          <div class="service-items" id="items-operations">
+
+            <!-- Management & Growth -->
+            <div class="service-item" style="padding-top:12px;">
+              <div class="service-dot navy" style="background:var(--navy);margin-top:6px;"></div>
+              <div>
+                <div class="service-item-text" style="font-weight:600;color:var(--navy);font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;">Management & Growth</div>
+              </div>
+            </div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Operational Efficiency Audit</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Policy and Procedure Writing</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Compliance Audits</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Board Resolutions and Minutes</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Monthly Management Reporting</div></div>
+
+            <!-- Digital Setup -->
+            <div class="service-item" style="padding-top:12px;margin-top:4px;border-top:0.5px solid rgba(27,58,107,0.1);">
+              <div class="service-dot navy" style="background:var(--navy);margin-top:6px;"></div>
+              <div>
+                <div class="service-item-text" style="font-weight:600;color:var(--navy);font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;">Digital Setup & Presence</div>
+              </div>
+            </div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Domain Registration</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Basic Website Setup</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">WhatsApp Business Account Setup</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Google My Business Listing</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Social Media Setup &amp; Management</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Paid Advertisement Setup (Facebook &amp; Google Ads)</div></div>
+
+            <!-- Corporate Branding & Supply -->
+            <div class="service-item" style="padding-top:12px;margin-top:4px;border-top:0.5px solid rgba(27,58,107,0.1);">
+              <div class="service-dot navy" style="background:var(--navy);margin-top:6px;"></div>
+              <div>
+                <div class="service-item-text" style="font-weight:600;color:var(--navy);font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;">Corporate Branding & Supply</div>
+              </div>
+            </div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Staff Uniforms & Branded Workwear</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">PPE Supply & Safety Wear</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Corporate Branded Merchandise</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Bulk Order Facilitation & Supply</div></div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GOLD RULE -->
+    <div class="gold-rule"></div>
+
+    <!-- WHY US -->
+    <section id="why">
+      <div class="container">
+        <p class="section-label fade-up">Why Newman &amp; Associates</p>
+        <div style="margin-top:28px;">
+
+          <div class="why-card fade-up" style="border-left:3px solid var(--navy);">
+            <div class="why-icon">
+              <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div>
+              <div class="why-card-title" style="font-size:0.9rem;font-weight:700;">Start strong</div>
+              <div class="why-card-text" style="font-weight:700;color:var(--dark);margin-bottom:6px;">The businesses that succeed tomorrow are the ones that start correctly today.</div>
+              <div class="why-card-text">We help you launch with the right legal structure, compliance, and registration from day one — because serious clients, funding opportunities, and business growth start with a business people can trust. Don&#39;t let your dream stay an idea. Build it properly. Build it to last.</div>
+            </div>
+          </div>
+
+          <div class="why-card fade-up" style="border-left:3px solid var(--gold);">
+            <div class="why-icon">
+              <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <div>
+              <div class="why-card-title" style="font-size:0.9rem;font-weight:700;">Grow with confidence</div>
+              <div class="why-card-text" style="font-weight:700;color:var(--dark);margin-bottom:6px;">Your dream deserves more than survival — it deserves growth.</div>
+              <div class="why-card-text">Too many businesses stay small because they start without direction, structure, or support. We help you build a business that is ready to scale, attract opportunities, and grow with confidence at every stage of your journey. When your foundation is strong, growth becomes possible.</div>
+            </div>
+          </div>
+
+          <div class="why-card fade-up" style="border-left:3px solid var(--navy);">
+            <div class="why-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+            </div>
+            <div>
+              <div class="why-card-title" style="font-size:0.9rem;font-weight:700;">Credible. Compliant. Certified.</div>
+              <div class="why-card-text" style="font-weight:700;color:var(--dark);margin-bottom:6px;">Credibility is what turns ambition into opportunity.</div>
+              <div class="why-card-text">A registered and compliant business tells the world you are serious, professional, and ready for bigger opportunities. From BBBEE certification to full compliance, we position your business to stand out, win trust faster, and open doors that informal businesses simply cannot access.</div>
+              <div class="credentials" style="margin-top:12px;">
+                <span class="credential light">Compliant with CIPC &amp; SARS</span>
+                
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PACKAGES -->
+    <section id="packages">
+      <div class="container">
+        <p class="section-label fade-up">Our Packages</p>
+        <h2 class="section-title fade-up">Built for every stage<br>of your journey.</h2>
+        <p class="section-body fade-up" style="margin-bottom:32px;">Every business starts somewhere. Where yours goes is limitless. Choose where you are today — we will walk with you to where you want to be.</p>
+
+        <!-- FOUNDATION -->
+        <div class="package-card fade-up" style="margin-bottom:14px;padding:0;overflow:hidden;">
+          <div onclick="togglePkg('foundation')" style="display:flex;align-items:center;justify-content:space-between;padding:20px 20px;cursor:pointer;">
+            <div>
+              <div class="package-name" style="font-size:1.3rem;margin-bottom:4px;">Foundation</div>
+              <div style="font-size:0.58rem;color:var(--mid);letter-spacing:0.08em;">For the informal business going formal</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:0.7rem;font-weight:400;color:var(--mid);white-space:nowrap;">from R2 299</div>
+              <div id="chevron-pkg-foundation" style="font-size:1.2rem;color:var(--gold);transition:transform 0.3s;">&#8964;</div>
+            </div>
+          </div>
+          <div id="pkg-foundation" style="display:none;padding:0 20px 20px 20px;border-top:1px solid rgba(27,58,107,0.08);">
+            <div style="padding-top:16px;">
+              <div class="package-desc" style="margin-bottom:14px;">Get legal. Get compliant. Start trading formally with confidence.</div>
+              <div class="package-includes">
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>CIPC Company Registration</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>SARS Tax Number Registration</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>BBBEE EME Affidavit &amp; Certificate</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Business Bank Account Facilitation</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Company Logo Design</div>
+              </div>
+              <div style="font-size:0.58rem;color:var(--mid);margin-top:12px;margin-bottom:14px;padding:8px 12px;background:var(--off);border-left:2px solid var(--gold);">
+                Perfect for: Spaza shops, home businesses, sole traders, first-time owners
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+                <div style="font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:700;color:var(--navy);">R2 299</div>
+                <button onclick="window.open('https://wa.me/27761999072','_blank')" class="package-cta outline" style="cursor:pointer;font-family:inherit;margin:0;">Get Started</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GROWTH — POPULAR CHOICE -->
+        <div class="package-card featured fade-up" style="margin-bottom:14px;padding:0;overflow:hidden;">
+          <div onclick="togglePkg('growth')" style="display:flex;align-items:center;justify-content:space-between;padding:20px 20px;cursor:pointer;position:relative;">
+            <div class="package-badge" style="position:absolute;top:0;right:0;border-radius:0;">Popular Choice</div>
+            <div style="padding-right:90px;">
+              <div class="package-name" style="font-size:1.3rem;margin-bottom:4px;">Growth</div>
+              <div style="font-size:0.58rem;color:var(--mid);letter-spacing:0.08em;">For the established business ready to scale</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:0.7rem;font-weight:400;color:var(--mid);white-space:nowrap;">from R5 299</div>
+              <div id="chevron-pkg-growth" style="font-size:1.2rem;color:var(--gold);transition:transform 0.3s;">&#8964;</div>
+            </div>
+          </div>
+          <div id="pkg-growth" style="display:none;padding:0 20px 20px 20px;border-top:1px solid rgba(27,58,107,0.08);">
+            <div style="padding-top:16px;">
+              <div class="package-desc" style="margin-bottom:14px;">Full compliance plus the tools to attract bigger clients, win tenders and access funding.</div>
+              <div class="package-includes">
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Everything in Foundation</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>CSD Registration</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Tax Clearance Pin</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>UIF &amp; COIDA Registration</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Basic Business Plan</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Company Profile</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>WhatsApp Business Setup</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Google My Business Listing</div>
+              </div>
+              <div style="font-size:0.58rem;color:var(--mid);margin-top:12px;margin-bottom:14px;padding:8px 12px;background:var(--off);border-left:2px solid var(--gold);">
+                Perfect for: Salons, mechanics, contractors, small retailers, service providers
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+                <div style="font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:700;color:var(--navy);">R5 299</div>
+                <button onclick="window.open('https://wa.me/27761999072','_blank')" class="package-cta primary" style="cursor:pointer;font-family:inherit;margin:0;">Get Started</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ENTERPRISE -->
+        <div class="package-card fade-up" style="margin-bottom:32px;padding:0;overflow:hidden;">
+          <div onclick="togglePkg('enterprise')" style="display:flex;align-items:center;justify-content:space-between;padding:20px 20px;cursor:pointer;">
+            <div>
+              <div class="package-name" style="font-size:1.3rem;margin-bottom:4px;">Enterprise</div>
+              <div style="font-size:0.58rem;color:var(--mid);letter-spacing:0.08em;">For the serious business owner building something significant</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:0.7rem;font-weight:400;color:var(--mid);white-space:nowrap;">from R10 222</div>
+              <div id="chevron-pkg-enterprise" style="font-size:1.2rem;color:var(--gold);transition:transform 0.3s;">&#8964;</div>
+            </div>
+          </div>
+          <div id="pkg-enterprise" style="display:none;padding:0 20px 20px 20px;border-top:1px solid rgba(27,58,107,0.08);">
+            <div style="padding-top:16px;">
+              <div class="package-desc" style="margin-bottom:14px;">Full compliance, funding-ready, tender-ready and operations support all in one.</div>
+              <div class="package-includes">
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Everything in Growth</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Fundable Business Plan</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Funding Application — SEDA, SEFA, NEF</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Tender Readiness Assessment</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>Tender Document Compilation</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>CSD Full Profile Setup</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>HR Policy Framework</div>
+                <div class="package-include"><div class="package-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>1 Month Operations Retainer</div>
+              </div>
+              <div style="font-size:0.58rem;color:var(--mid);margin-top:12px;margin-bottom:14px;padding:8px 12px;background:var(--off);border-left:2px solid var(--gold);">
+                Perfect for: Car dealerships, construction, transport, professional services, government suppliers
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+                <div style="font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:700;color:var(--navy);">R10 222</div>
+                <button onclick="window.open('https://wa.me/27761999072','_blank')" class="package-cta outline" style="cursor:pointer;font-family:inherit;margin:0;">Get Started</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADD-ONS -->
+        <div class="service-block fade-up">
+          <div class="service-header" onclick="toggleService('addons')">
+            <div class="service-bar gold"></div>
+            <div>
+              <div class="service-title">Optional Add-Ons</div>
+              <div class="service-subtitle">Customise any package</div>
+            </div>
+            <div class="service-chevron" id="chevron-addons">&#8964;</div>
+          </div>
+          <div class="service-items" id="items-addons">
+
+            <!-- Compliance Add-Ons -->
+            <div class="service-item" style="padding-top:12px;">
+              <div class="service-dot navy" style="background:var(--navy);margin-top:6px;"></div>
+              <div><div class="service-item-text" style="font-weight:600;color:var(--navy);font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;">Compliance</div></div>
+            </div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">VAT Registration</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Annual Returns Filing</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Company Tax Filing on Behalf of Client</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Accounting &amp; Bookkeeping Support</div></div>
+
+            <!-- People Strategy Add-Ons -->
+            <div class="service-item" style="padding-top:12px;margin-top:4px;border-top:0.5px solid rgba(27,58,107,0.08);">
+              <div class="service-dot navy" style="background:var(--navy);margin-top:6px;"></div>
+              <div><div class="service-item-text" style="font-weight:600;color:var(--navy);font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;">People Strategy</div></div>
+            </div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Employment Contract (BCEA Compliant)</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">HR Policy Pack</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Payroll Setup &amp; Management</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Time &amp; Attendance System Setup</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Intern Placement &amp; Sourcing</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">WIL Logbook Support</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Skills Development Support (WSP, ATR, SDL)</div></div>
+
+            <!-- Digital Add-Ons -->
+            <div class="service-item" style="padding-top:12px;margin-top:4px;border-top:0.5px solid rgba(27,58,107,0.08);">
+              <div class="service-dot navy" style="background:var(--navy);margin-top:6px;"></div>
+              <div><div class="service-item-text" style="font-weight:600;color:var(--navy);font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;">Digital &amp; Online Presence</div></div>
+            </div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Domain Registration</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Basic Website Setup</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Social Media Setup &amp; Management</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Paid Advertisement Setup (Facebook &amp; Google Ads)</div></div>
+
+            <!-- Branding & Supply Add-Ons -->
+            <div class="service-item" style="padding-top:12px;margin-top:4px;border-top:0.5px solid rgba(27,58,107,0.08);">
+              <div class="service-dot navy" style="background:var(--navy);margin-top:6px;"></div>
+              <div><div class="service-item-text" style="font-weight:600;color:var(--navy);font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;">Branding &amp; Supply</div></div>
+            </div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Staff Uniforms &amp; Branded Workwear</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">PPE Supply &amp; Safety Wear</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Corporate Branded Merchandise</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Bulk Order Facilitation &amp; Supply</div></div>
+
+            <!-- Consulting Add-Ons -->
+            <div class="service-item" style="padding-top:12px;margin-top:4px;border-top:0.5px solid rgba(27,58,107,0.08);">
+              <div class="service-dot navy" style="background:var(--navy);margin-top:6px;"></div>
+              <div><div class="service-item-text" style="font-weight:600;color:var(--navy);font-size:0.68rem;letter-spacing:0.06em;text-transform:uppercase;">Consulting &amp; Strategy</div></div>
+            </div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Monthly Consulting Retainer</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Additional Strategy Consultation (per hour)</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Tender Compilation &amp; Submission Support</div></div>
+            <div class="service-item"><div class="service-dot gold"></div><div class="service-item-text">Funding Application Assistance</div></div>
+
+          </div>
+        </div>
+
+        <div style="margin-top:24px;padding:16px 18px;background:var(--off);border-left:3px solid var(--gold);" class="fade-up">
+          <div style="font-size:0.6rem;font-weight:700;color:var(--navy);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Not sure which package is right for you?</div>
+          <div style="font-size:0.68rem;color:var(--mid);line-height:1.7;margin-bottom:6px;">Your business has no ceiling. Whatever you need — we build it, grow it, and protect it with you. Start a conversation and let us figure out the rest together.</div><div style="font-size:0.68rem;color:var(--mid);line-height:1.7;margin-bottom:12px;">We help you launch with the right legal structure, compliance, and registration from day one — because serious clients, funding opportunities, and business growth start with a business people can trust. Don't let your dream stay an idea. Build it properly. Build it to last. <span style="font-weight:700;color:var(--navy);">Build it with us.</span></div>
+          <button onclick="window.open('https://wa.me/27761999072','_blank')" style="background:var(--navy);color:white;font-size:0.58rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:11px 20px;border:none;cursor:pointer;font-family:inherit;">Free Consultation</button>
+        </div>
+
+      </div>
+    </section>
+
+    
+    <!-- GOLD RULE -->
+    <div class="gold-rule"></div>
+
+    <!-- NODE SECTION -->
+    <section id="node" style="background:var(--navy2);padding:64px 0;">
+      <div class="container">
+
+        <!-- Header -->
+        <div style="text-align:center;margin-bottom:40px;" class="fade-up">
+          <div style="display:inline-flex;align-items:center;justify-content:center;
+            width:64px;height:64px;border:1px solid rgba(201,168,76,0.3);
+            border-radius:50%;margin-bottom:16px;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+              stroke="#C9A84C" stroke-width="1.5">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+          </div>
+          <p style="font-size:0.5rem;font-weight:600;letter-spacing:0.25em;
+            text-transform:uppercase;color:var(--gold);margin-bottom:12px;">
+            Introducing NODE
+          </p>
+          <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;
+            font-weight:300;color:var(--white);line-height:1.2;margin-bottom:14px;">
+            Your community.<br><em style="color:var(--gold);font-style:italic;">
+            Connected.</em>
+          </h2>
+          <p style="font-size:0.72rem;color:rgba(255,255,255,0.5);
+            line-height:1.8;max-width:360px;margin:0 auto;">
+            NODE connects local consumers with trusted service providers 
+            in their community — built for South Africa, starting in the Swartland.
+          </p>
+        </div>
+
+        <!-- What is NODE -->
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.15);
+          border-radius:2px;padding:24px;margin-bottom:16px;" class="fade-up">
+          <p style="font-size:0.5rem;font-weight:600;letter-spacing:0.2em;
+            text-transform:uppercase;color:var(--gold);margin-bottom:10px;">
+            What is NODE?
+          </p>
+          <p style="font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.8;">
+            NODE is a free mobile marketplace app that helps everyday people 
+            find trusted local service providers — plumbers, electricians, 
+            hair stylists, caterers, gardeners and more — all vetted and 
+            registered through Newman &amp; Associates.
+          </p>
+        </div>
+
+        <!-- Why NODE cards -->
+        <div style="margin-bottom:24px;" class="fade-up">
+          <p style="font-size:0.5rem;font-weight:600;letter-spacing:0.2em;
+            text-transform:uppercase;color:var(--gold);margin-bottom:14px;">
+            Why NODE?
+          </p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:flex-start;gap:14px;
+              padding:14px;background:rgba(255,255,255,0.03);
+              border-left:3px solid var(--gold);">
+              <div style="font-size:1.2rem;flex-shrink:0;">🔍</div>
+              <div>
+                <div style="font-size:0.65rem;font-weight:700;color:var(--white);
+                  margin-bottom:4px;">Find trusted local SPs</div>
+                <div style="font-size:0.62rem;color:rgba(255,255,255,0.45);
+                  line-height:1.7;">Every service provider on NODE is verified 
+                  and registered — no scams, no guesswork.</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:14px;
+              padding:14px;background:rgba(255,255,255,0.03);
+              border-left:3px solid var(--navy);">
+              <div style="font-size:1.2rem;flex-shrink:0;">💬</div>
+              <div>
+                <div style="font-size:0.65rem;font-weight:700;color:var(--white);
+                  margin-bottom:4px;">Message directly in the app</div>
+                <div style="font-size:0.62rem;color:rgba(255,255,255,0.45);
+                  line-height:1.7;">Chat with SPs, get quotes and confirm 
+                  bookings — all inside NODE.</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:14px;
+              padding:14px;background:rgba(255,255,255,0.03);
+              border-left:3px solid var(--gold);">
+              <div style="font-size:1.2rem;flex-shrink:0;">⭐</div>
+              <div>
+                <div style="font-size:0.65rem;font-weight:700;color:var(--white);
+                  margin-bottom:4px;">Real reviews. Real people.</div>
+                <div style="font-size:0.62rem;color:rgba(255,255,255,0.45);
+                  line-height:1.7;">Rate and review after every job. 
+                  Build trust in your community.</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:14px;
+              padding:14px;background:rgba(255,255,255,0.03);
+              border-left:3px solid var(--navy);">
+              <div style="font-size:1.2rem;flex-shrink:0;">📍</div>
+              <div>
+                <div style="font-size:0.65rem;font-weight:700;color:var(--white);
+                  margin-bottom:4px;">Hyperlocal. Community first.</div>
+                <div style="font-size:0.62rem;color:rgba(255,255,255,0.45);
+                  line-height:1.7;">NODE is built for your town, your 
+                  neighbourhood, your community.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download button -->
+        <div style="text-align:center;margin-bottom:24px;" class="fade-up">
+          <p style="font-size:0.5rem;font-weight:600;letter-spacing:0.2em;
+            text-transform:uppercase;color:var(--gold);margin-bottom:14px;">
+            Download NODE
+          </p>
+          <a href="https://play.google.com/store/apps/details?id=co.za.newmanassociates.node"
+            target="_blank"
+            style="display:inline-flex;align-items:center;gap:12px;
+              background:var(--white);color:var(--navy2);
+              padding:14px 24px;text-decoration:none;
+              border:1px solid rgba(255,255,255,0.1);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#1B3A6B">
+              <path d="M3.18 23.76a2 2 0 001.07-.31l11.2-6.47-2.44-2.44-9.83 9.22zm-1.74-20.9A2 2 0 001 4.5v15a2 2 0 00.44 1.24l.08.07 8.4-8.4v-.2L1.52 3.8l-.08.06zm19.44 8.62l-2.39-1.38-2.7 2.7 2.7 2.7 2.41-1.39a2 2 0 000-3.63zm-18.7 9.9l9.83-9.83 2.44 2.44-11.2 6.46a2 2 0 01-1.07.93z"/>
+            </svg>
+            <div style="text-align:left;">
+              <div style="font-size:0.45rem;font-weight:500;letter-spacing:0.1em;
+                text-transform:uppercase;color:var(--mid);line-height:1;">
+                Get it on
+              </div>
+              <div style="font-size:0.75rem;font-weight:700;color:var(--navy2);
+                letter-spacing:0.05em;line-height:1.4;">
+                Google Play
+              </div>
+            </div>
+          </a>
+          <p style="font-size:0.52rem;color:rgba(255,255,255,0.2);
+            margin-top:10px;">Free to download · Android</p>
+        </div>
+
+        <!-- T&C link -->
+        <div style="text-align:center;padding-top:20px;
+          border-top:1px solid rgba(255,255,255,0.06);" class="fade-up">
+          <p style="font-size:0.55rem;color:rgba(255,255,255,0.25);
+            line-height:1.7;margin-bottom:8px;">
+            By using NODE you agree to our terms and privacy policy.
+          </p>
+          <a href="node-terms.html" target="_blank"
+            style="font-size:0.55rem;color:var(--gold);
+              text-decoration:underline;letter-spacing:0.08em;">
+            View NODE Terms &amp; Conditions and Privacy Policy →
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- GOLD RULE -->
+    <div class="gold-rule"></div>
+
+    <!-- CTA -->
+    <section id="cta">
+      <div class="container">
+        <p class="cta-label fade-up">Ready to Launch Your Business?</p>
+        <h2 class="cta-title fade-up">Let&#39;s Talk.</h2>
+        <p class="cta-sub fade-up">Free initial consultation. No obligation.<br>We only succeed when you succeed.</p>
+        <div class="cta-buttons fade-up">
+          <a href="https://wa.me/27761999072" style="display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--navy2);font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:16px 28px;text-decoration:none;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Ask Me
+          </a>
+        </div>
+      </div>
+    </section>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand-name">Newman &amp; Associates</div>
+          <div class="footer-brand-tag">Compliance · Consultation · People Strategy · Operations</div>
+        </div>
+        <div class="footer-links">
+          <a href="#intro" class="footer-link">About</a>
+          <a href="#services" class="footer-link">Services</a>
+          <a href="#packages" class="footer-link">Packages</a>
+          <a href="#cta" class="footer-link">Contact</a>
+          <a href="#node" class="footer-link">NODE App</a>
+          <a href="https://wa.me/27761999072" class="footer-link">Ask Me</a>
+        </div>
+        <div class="footer-bottom">
+          <div class="footer-copy">© 2026 Newman &amp; Associates (Pty) Ltd · Reg No: [Pending]</div>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- end site-content -->
+
+  <script>
+    // Loader
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 5000);
+    });
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('open');
+      navMenu.classList.toggle('open');
+    });
+    function closeMenu() {
+      navToggle.classList.remove('open');
+      navMenu.classList.remove('open');
+    }
+
+    // EXPLORE — reveal site content
+    let revealed = false;
+    function revealSite() {
+      if (revealed) return;
+      revealed = true;
+      const content = document.getElementById('site-content');
+      const trigger = document.getElementById('exploreTrigger');
+      content.classList.add('revealed');
+      trigger.style.opacity = '0';
+      trigger.style.pointerEvents = 'none';
+      setTimeout(() => {
+        document.getElementById('intro').scrollIntoView({ behavior: 'smooth' });
+      }, 400);
+    }
+
+    // Service accordion
+    function toggleService(id) {
+      const items = document.getElementById('items-' + id);
+      const chevron = document.getElementById('chevron-' + id);
+      items.classList.toggle('open');
+      chevron.classList.toggle('open');
+    }
+
+    // Package accordion toggle
+    function togglePkg(id) {
+      var content = document.getElementById('pkg-' + id);
+      var chevron = document.getElementById('chevron-pkg-' + id);
+      var isOpen = content.style.display === 'block';
+      content.style.display = isOpen ? 'none' : 'block';
+      chevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    }
+
+    // Fade up on scroll
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
