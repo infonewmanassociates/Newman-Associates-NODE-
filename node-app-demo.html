@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NODE — App Walkthrough Demo</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
+    background:#EEF1F4;
+    display:flex; align-items:center; justify-content:center;
+    min-height:100vh;
+  }
+
+  /* ===== PHONE FRAME ===== */
+  .phone {
+    position:relative; width:320px; height:660px;
+    background:#0a0a0a; border-radius:52px; padding:14px;
+    box-shadow:0 30px 70px rgba(0,0,0,0.35), inset 0 0 0 2px rgba(255,255,255,0.08);
+  }
+  .screen {
+    position:relative; width:100%; height:100%;
+    background:#F8FAFC; border-radius:38px; overflow:hidden;
+  }
+  .island {
+    position:absolute; top:16px; left:50%; transform:translateX(-50%);
+    width:96px; height:28px; background:#000; border-radius:999px; z-index:50;
+  }
+  .home-indicator {
+    position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
+    width:110px; height:4px; background:rgba(0,0,0,0.25); border-radius:999px;
+    z-index:50;
+  }
+
+  /* ===== SCENES (stacked, faded in/out) ===== */
+  .scene {
+    position:absolute; inset:0; opacity:0; pointer-events:none;
+    transition:opacity 0.5s ease;
+  }
+  .scene.active { opacity:1; pointer-events:auto; }
+
+  /* ===== LOBBY ===== */
+  #scene-lobby {
+    background:linear-gradient(160deg,#16382A 0%,#0E2A1E 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  .lobby-logo { font-family:Georgia,serif; font-size:34px; letter-spacing:10px;
+    color:#F2EDE0; margin-top:6px; }
+  .lobby-tag { font-size:10px; color:#E8B84B; letter-spacing:2px;
+    text-transform:uppercase; font-weight:700; margin-top:10px; }
+  .connect-btn { margin-top:34px; background:#E8B84B; color:#0E2A1E;
+    border:none; padding:13px 42px; border-radius:999px; font-weight:700;
+    font-size:13px; letter-spacing:1px; cursor:pointer; }
+
+  /* ===== APP CHROME ===== */
+  .app-header { padding:52px 16px 10px; background:#fff;
+    border-bottom:1px solid #E2E8F0; }
+  .app-header h1 { font-size:16px; color:#16382A; font-weight:700; }
+  .app-body { position:absolute; top:88px; bottom:78px; left:0; right:0;
+    overflow-y:auto; overflow-x:hidden; }
+  .tab-bar { position:absolute; bottom:0; left:0; right:0; height:78px;
+    background:#fff; border-top:1px solid #E2E8F0; display:flex;
+    padding-bottom:14px; z-index:20; }
+  .tab { flex:1; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; gap:3px; color:#94A3B8; font-size:9px;
+    font-weight:600; transition:color 0.2s; }
+  .tab.active { color:#0052CC; }
+  .tab .icon { font-size:18px; }
+
+  /* ===== ADS FEED ===== */
+  .ad-card { margin:12px 16px; border-radius:16px; overflow:hidden;
+    box-shadow:0 2px 10px rgba(0,0,0,0.06); background:#fff; }
+  .ad-visual { height:120px; display:flex; align-items:center;
+    justify-content:center; font-size:44px; position:relative; }
+  .ad-badge { position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.6);
+    color:#fff; font-size:9px; font-weight:700; padding:3px 9px;
+    border-radius:999px; letter-spacing:0.5px; }
+  .ad-body { padding:12px 14px; }
+  .ad-title { font-size:13px; font-weight:700; color:#212529; }
+  .ad-sub { font-size:11px; color:#626E7A; margin-top:3px; }
+
+  /* ===== EXPLORE ===== */
+  .search-bar { margin:12px 16px 6px; display:flex; gap:8px; }
+  .search-input { flex:1; background:#F1F5F9; border-radius:10px;
+    padding:10px 12px; font-size:12px; color:#212529; display:flex;
+    align-items:center; }
+  .search-input.loc { flex:0 0 90px; }
+  .search-btn { background:#0052CC; color:#fff; border:none;
+    border-radius:10px; padding:0 16px; font-size:12px; font-weight:700; }
+  .sp-row { display:flex; gap:12px; align-items:center; margin:0 16px 10px;
+    padding:10px; background:#fff; border-radius:12px;
+    box-shadow:0 1px 6px rgba(0,0,0,0.05); }
+  .sp-avatar { width:42px; height:42px; border-radius:50%; background:#EBF0F5;
+    display:flex; align-items:center; justify-content:center; font-size:14px;
+    font-weight:700; color:#16382A; flex-shrink:0; }
+  .sp-info { flex:1; min-width:0; }
+  .sp-name { font-size:12.5px; font-weight:700; color:#212529;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .sp-cat { font-size:10.5px; color:#626E7A; margin-top:2px; }
+  .sp-rating { font-size:10px; color:#F59E0B; font-weight:700; }
+  .results-label { margin:14px 16px 4px; font-size:11px; color:#626E7A;
+    font-weight:600; }
+
+  /* ===== PROFILE ===== */
+  .profile-hero { background:linear-gradient(135deg,#16382A,#0E2A1E);
+    padding:52px 20px 24px; text-align:center; color:#fff; }
+  .profile-avatar { width:64px; height:64px; border-radius:50%;
+    background:rgba(255,255,255,0.15); display:flex; align-items:center;
+    justify-content:center; font-size:22px; font-weight:700; margin:0 auto 10px; }
+  .profile-name { font-size:16px; font-weight:700; }
+  .profile-cat { font-size:11px; opacity:0.7; margin-top:2px; }
+  .profile-rating { margin-top:8px; font-size:11px; color:#E8B84B; font-weight:700; }
+  .profile-section { padding:16px 18px; border-bottom:1px solid #F1F5F9; }
+  .profile-section h4 { font-size:11px; color:#94A3B8; text-transform:uppercase;
+    letter-spacing:0.5px; margin-bottom:6px; }
+  .profile-section p { font-size:12.5px; color:#212529; line-height:1.6; }
+  .msg-btn { position:absolute; bottom:88px; left:16px; right:16px;
+    background:#0052CC; color:#fff; text-align:center; padding:13px;
+    border-radius:12px; font-weight:700; font-size:13px; z-index:15; }
+
+  /* ===== CHAT ===== */
+  .chat-header { display:flex; align-items:center; gap:10px; padding:52px 14px 12px;
+    background:#FAFAFA; border-bottom:1px solid #E2E8F0; }
+  .chat-avatar { width:32px; height:32px; border-radius:50%; background:#EBF0F5;
+    display:flex; align-items:center; justify-content:center; font-size:11px;
+    font-weight:700; color:#16382A; }
+  .chat-body { position:absolute; top:86px; bottom:64px; left:0; right:0;
+    padding:14px; overflow-y:auto; }
+  .bubble { max-width:75%; padding:9px 13px; border-radius:14px; font-size:12.5px;
+    margin-bottom:10px; line-height:1.4; opacity:0; transform:translateY(8px);
+    transition:opacity 0.3s, transform 0.3s; }
+  .bubble.show { opacity:1; transform:translateY(0); }
+  .bubble.mine { background:#E3F2FD; color:#212529; margin-left:auto;
+    border-bottom-right-radius:4px; }
+  .bubble.theirs { background:#F1F3F5; color:#212529; margin-right:auto;
+    border-bottom-left-radius:4px; }
+  .chat-input-bar { position:absolute; bottom:0; left:0; right:0; height:64px;
+    background:#fff; border-top:1px solid #E2E8F0; display:flex;
+    align-items:center; padding:0 14px; gap:8px; }
+  .chat-input { flex:1; background:#F8FAFC; border-radius:20px; padding:10px 14px;
+    font-size:12.5px; color:#212529; min-height:16px; border:1px solid #E2E8F0; }
+  .chat-input .cursor { display:inline-block; width:1px; height:13px;
+    background:#212529; animation:blink 0.8s infinite; vertical-align:middle; }
+  @keyframes blink { 50% { opacity:0; } }
+  .send-dot { width:34px; height:34px; border-radius:50%; background:#0052CC;
+    display:flex; align-items:center; justify-content:center; color:#fff;
+    font-size:14px; flex-shrink:0; }
+
+  /* ===== TAP INDICATOR ===== */
+  .tap-ripple { position:absolute; width:36px; height:36px; border-radius:50%;
+    background:rgba(232,184,75,0.5); border:2px solid #E8B84B;
+    transform:translate(-50%,-50%) scale(0); pointer-events:none; z-index:100;
+    opacity:0;
+  }
+  .tap-ripple.animate {
+    animation:tapPulse 0.6s ease-out;
+  }
+  @keyframes tapPulse {
+    0% { transform:translate(-50%,-50%) scale(0.3); opacity:0.9; }
+    70% { transform:translate(-50%,-50%) scale(1.4); opacity:0.4; }
+    100% { transform:translate(-50%,-50%) scale(1.6); opacity:0; }
+  }
+
+  .star { color:#E2E8F0; transition:color 0.15s; }
+  .star.filled { color:#F59E0B; }
+  .msg-list-row { display:flex; gap:12px; align-items:center; margin:0 16px 4px;
+    padding:12px 10px; border-bottom:1px solid #F1F5F9; }
+  .msg-avatar { width:44px; height:44px; border-radius:50%; background:#EBF0F5;
+    display:flex; align-items:center; justify-content:center; font-size:14px;
+    font-weight:700; color:#16382A; flex-shrink:0; }
+  .msg-list-name { font-size:13px; font-weight:700; color:#212529; }
+  .msg-list-preview { font-size:11px; color:#626E7A; margin-top:2px;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:190px; }
+  .msg-list-time { font-size:10px; color:#94A3B8; }
+
+  .caption { margin-top:16px; text-align:center; font-size:12px; color:#626E7A;
+    max-width:320px; font-style:italic; }
+</style>
+</head>
+<body>
+
+<div style="display:flex;flex-direction:column;align-items:center;">
+<div class="phone">
+  <div class="screen" id="screen">
+    <div class="island"></div>
+
+    <!-- SCENE: LOBBY -->
+    <div class="scene active" id="scene-lobby">
+      <canvas id="lobbyCanvas" width="170" height="170"></canvas>
+      <div class="lobby-logo">NODE</div>
+      <div class="lobby-tag">Your town. Your people.</div>
+      <button class="connect-btn" id="connectBtn">CONNECT</button>
+    </div>
+
+    <!-- SCENE: ADS FEED -->
+    <div class="scene" id="scene-ads">
+      <div class="app-header"><h1>Feed</h1></div>
+      <div class="app-body" id="adsBody">
+        <div class="ad-card">
+          <div class="ad-visual" style="background:linear-gradient(135deg,#0052CC,#003d99);">
+            🚗💦<div class="ad-badge">SPECIAL</div>
+          </div>
+          <div class="ad-body">
+            <div class="ad-title">Sparkle Car Wash — Inside & Out Special</div>
+            <div class="ad-sub">Full valet, interior + exterior — this week only</div>
+          </div>
+        </div>
+        <div class="ad-card">
+          <div class="ad-visual" style="background:linear-gradient(135deg,#7C3AED,#5b21b6);">
+            🧹🧼<div class="ad-badge">HOME SERVICES</div>
+          </div>
+          <div class="ad-body">
+            <div class="ad-title">Deep Clean Diva</div>
+            <div class="ad-sub">Spring cleaning specialists — mops, brooms & sparkle guaranteed</div>
+          </div>
+        </div>
+        <div class="ad-card">
+          <div class="ad-visual" style="background:linear-gradient(135deg,#DB2777,#9d174d);">
+            💇‍♀️<div class="ad-badge">BEAUTY</div>
+          </div>
+          <div class="ad-body">
+            <div class="ad-title">Wanda's Wigs</div>
+            <div class="ad-sub">All types & styles of wigs — new stock weekly</div>
+          </div>
+        </div>
+        <div class="ad-card">
+          <div class="ad-visual" style="background:linear-gradient(135deg,#22c55e,#15803d);">
+            🍎🥦<div class="ad-badge">WEEKLY SPECIAL</div>
+          </div>
+          <div class="ad-body">
+            <div class="ad-title">Fresh Harvest Produce</div>
+            <div class="ad-sub">Fresh fruit & veg specials — every week, always local</div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-bar">
+        <div class="tab active" id="tabAds"><span class="icon">📢</span>Feed</div>
+        <div class="tab" id="tabExplore"><span class="icon">🔍</span>Explore</div>
+        <div class="tab"><span class="icon">💬</span>Messages</div>
+        <div class="tab"><span class="icon">👤</span>Profile</div>
+      </div>
+    </div>
+
+    <!-- SCENE: EXPLORE -->
+    <div class="scene" id="scene-explore">
+      <div class="app-header"><h1>Explore</h1></div>
+      <div class="app-body" id="exploreBody">
+        <div class="search-bar">
+          <div class="search-input" id="searchQueryBox">Search services...<span class="cursor" id="queryCursor" style="display:none;"></span></div>
+          <div class="search-input loc" id="searchLocBox">Location</div>
+        </div>
+        <div style="margin:8px 16px;">
+          <button class="search-btn" id="searchBtn" style="width:100%;padding:10px 0;">Search</button>
+        </div>
+        <div id="spList"></div>
+      </div>
+      <div class="tab-bar">
+        <div class="tab"><span class="icon">📢</span>Feed</div>
+        <div class="tab active"><span class="icon">🔍</span>Explore</div>
+        <div class="tab"><span class="icon">💬</span>Messages</div>
+        <div class="tab"><span class="icon">👤</span>Profile</div>
+      </div>
+    </div>
+
+    <!-- SCENE: PROFILE -->
+    <div class="scene" id="scene-profile">
+      <div class="app-body" style="top:0;bottom:0;overflow-y:auto;">
+        <div class="profile-hero">
+          <div class="profile-avatar">LS</div>
+          <div class="profile-name">Little Stars Party Planners</div>
+          <div class="profile-cat">Events & Entertainment · Malmesbury</div>
+          <div class="profile-rating">★★★★★ 4.9 (38 reviews)</div>
+        </div>
+        <div class="profile-section">
+          <h4>About</h4>
+          <p>We plan unforgettable kids' parties from start to finish —
+          themes, decor, entertainers, cake and everything in between.
+          Fully insured, background-checked staff, 8 years in Malmesbury.</p>
+        </div>
+        <div class="profile-section">
+          <h4>Services</h4>
+          <p>Full party planning · Themed decor · Entertainers & face painting
+          · Jumping castles · Party packs</p>
+        </div>
+        <div class="profile-section">
+          <h4>Operating Hours</h4>
+          <p>Monday – Friday: 08:00 – 17:00<br>
+          Saturday: 08:00 – 14:00<br>
+          Sunday: Closed<br>
+          After-hours & weekend events by arrangement</p>
+        </div>
+        <div class="profile-section">
+          <h4>Payment Methods</h4>
+          <p>Cash · EFT / Bank Transfer · SnapScan · 50% deposit to
+          secure your date, balance due on the day</p>
+        </div>
+        <div class="profile-section" id="reviewsSection">
+          <h4>Reviews (38)</h4>
+          <div style="font-size:11.5px;color:#626E7A;line-height:1.6;margin-bottom:10px;">
+            ★★★★★ "Booked them for my daughter's 6th — flawless from start to finish." — Aneesa
+          </div>
+          <div style="font-size:11.5px;color:#626E7A;line-height:1.6;margin-bottom:14px;">
+            ★★★★★ "So professional, and the kids had the best time." — Wesley
+          </div>
+
+          <div id="newReviewBox" style="border-top:1px dashed #E2E8F0;padding-top:14px;">
+            <div style="font-size:10.5px;color:#94A3B8;text-transform:uppercase;
+              letter-spacing:0.5px;margin-bottom:8px;">Leave a review</div>
+            <div id="starRow" style="font-size:20px;letter-spacing:3px;margin-bottom:10px;color:#E2E8F0;">
+              <span class="star" data-i="1">★</span><span class="star" data-i="2">★</span><span class="star" data-i="3">★</span><span class="star" data-i="4">★</span><span class="star" data-i="5">★</span>
+            </div>
+            <div id="reviewTextBox" style="min-height:38px;background:#F8FAFC;
+              border:1px solid #E2E8F0;border-radius:10px;padding:10px 12px;
+              font-size:12px;color:#212529;margin-bottom:10px;"></div>
+            <div id="postReviewBtn" style="background:#0052CC;color:#fff;
+              text-align:center;padding:10px;border-radius:10px;font-size:12px;
+              font-weight:700;">Post Review</div>
+            <div id="postedReview" style="display:none;font-size:11.5px;
+              color:#22c55e;line-height:1.6;margin-top:12px;padding-top:12px;
+              border-top:1px dashed #E2E8F0;"></div>
+          </div>
+        </div>
+        <div style="height:70px;"></div>
+      </div>
+      <div class="msg-btn" id="msgBtn">💬 Message</div>
+      <div class="tab-bar">
+        <div class="tab"><span class="icon">📢</span>Feed</div>
+        <div class="tab active"><span class="icon">🔍</span>Explore</div>
+        <div class="tab"><span class="icon">💬</span>Messages</div>
+        <div class="tab"><span class="icon">👤</span>Profile</div>
+      </div>
+    </div>
+
+    <!-- SCENE: TIME SKIP -->
+    <div class="scene" id="scene-timeskip" style="background:#0E2A1E;
+      display:flex;align-items:center;justify-content:center;">
+      <div id="timeskipText" style="color:#F2EDE0;font-family:Georgia,serif;
+        font-size:19px;letter-spacing:1px;opacity:0;transition:opacity 1.2s;
+        text-align:center;padding:0 30px;">After the kids party...</div>
+    </div>
+
+    <!-- SCENE: MESSAGES LIST -->
+    <div class="scene" id="scene-messages">
+      <div class="app-header"><h1>Messages</h1></div>
+      <div class="app-body" id="messagesBody"></div>
+      <div class="tab-bar">
+        <div class="tab"><span class="icon">📢</span>Feed</div>
+        <div class="tab"><span class="icon">🔍</span>Explore</div>
+        <div class="tab active"><span class="icon">💬</span>Messages</div>
+        <div class="tab"><span class="icon">👤</span>Profile</div>
+      </div>
+    </div>
+
+    <!-- SCENE: CHAT -->
+    <div class="scene" id="scene-chat">
+      <div class="chat-header">
+        <div class="chat-avatar" id="chatAvatarTap">LS</div>
+        <div style="font-size:13px;font-weight:700;color:#212529;">Little Stars Party Planners</div>
+      </div>
+      <div class="chat-body" id="chatBody"></div>
+      <div class="chat-input-bar">
+        <div class="chat-input" id="chatInputText"></div>
+        <div class="send-dot">➤</div>
+      </div>
+    </div>
+
+    <div class="tap-ripple" id="tapRipple"></div>
+    <div class="home-indicator"></div>
+  </div>
+</div>
+<div class="caption">Illustrative walkthrough — loops automatically</div>
+</div>
+
+<script>
+// ================================================================
+// NODE App Walkthrough Demo — fully scripted, looping sequence.
+// Lobby → Connect tap → Ads feed (scroll) → Explore tab → search
+// "kids party" in "Malmesbury" → 3 results → profile → Message →
+// live chat exchange → loop back to Lobby.
+// ================================================================
+
+const screen = document.getElementById('screen');
+const ripple = document.getElementById('tapRipple');
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function showScene(id) {
+  document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function tapAt(xPercent, yPercent) {
+  const rect = screen.getBoundingClientRect();
+  ripple.style.left = (rect.width * xPercent) + 'px';
+  ripple.style.top = (rect.height * yPercent) + 'px';
+  ripple.classList.remove('animate');
+  void ripple.offsetWidth; // reflow, restart animation
+  ripple.classList.add('animate');
+}
+
+async function smoothScroll(el, to, duration) {
+  const start = el.scrollTop;
+  const startTime = performance.now();
+  return new Promise(resolve => {
+    function step(now) {
+      const p = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.scrollTop = start + (to - start) * eased;
+      if (p < 1) requestAnimationFrame(step);
+      else resolve();
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+async function typeText(el, text, speed) {
+  el.innerHTML = '';
+  const cursor = document.createElement('span');
+  cursor.style.cssText = 'display:inline-block;width:1px;height:13px;background:#212529;vertical-align:middle;';
+  for (let i = 0; i < text.length; i++) {
+    el.textContent = text.slice(0, i + 1);
+    await sleep(speed);
+  }
+}
+
+const ALL_SPS = [
+  ["Solomon's Metalworks","Construction & Trades","4.8"],
+  ["Nomsa Hair Studio","Beauty & Personal Care","5.0"],
+  ["Jacob's Auto Repairs","Transport & Delivery","4.9"],
+  ["Deep Clean Diva","Domestic Services","4.7"],
+  ["Wanda's Wigs","Beauty & Personal Care","4.6"],
+  ["Fresh Harvest Produce","Food & Catering","4.8"],
+  ["Sparkle Car Wash","Transport & Delivery","4.5"],
+  ["Little Stars Party Planners","Events & Entertainment","4.9"],
+  ["Bianca's Bounce Castles","Events & Entertainment","4.7"],
+  ["Mike's Plumbing","Construction & Trades","4.6"],
+  ["Thandi's Catering","Food & Catering","5.0"],
+  ["Green Thumb Gardens","Gardening & Outdoor","4.8"],
+  ["QuickFix Appliances","Appliance Repairs","4.5"],
+  ["Star Kids Entertainment","Events & Entertainment","4.8"],
+  ["Sew Perfect Tailoring","Clothing & Textile","4.7"],
+  ["Community Security Patrol","Security Services","4.6"],
+  ["Study Buddy Tutoring","Education & Training","4.9"],
+  ["Handy Andy Repairs","Construction & Trades","4.4"],
+  ["Blessed Bakes","Food & Catering","5.0"],
+  ["Swift Delivery Services","Transport & Delivery","4.7"],
+];
+
+const KIDS_PARTY_RESULTS = [
+  ["Little Stars Party Planners","Events & Entertainment","4.9"],
+  ["Bianca's Bounce Castles","Events & Entertainment","4.7"],
+  ["Star Kids Entertainment","Events & Entertainment","4.8"],
+];
+
+function initials(name) {
+  return name.split(' ').filter(w => /^[A-Z]/.test(w)).slice(0,2).map(w => w[0]).join('') || name[0];
+}
+
+function renderSPList(list) {
+  const el = document.getElementById('spList');
+  el.innerHTML = list.map(([name,cat,rating]) => `
+    <div class="sp-row">
+      <div class="sp-avatar">${initials(name)}</div>
+      <div class="sp-info">
+        <div class="sp-name">${name}</div>
+        <div class="sp-cat">${cat} · Malmesbury</div>
+      </div>
+      <div class="sp-rating">★ ${rating}</div>
+    </div>
+  `).join('');
+}
+
+// ── Lobby constellation animation ──
+(function() {
+  const canvas = document.getElementById('lobbyCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = 170, H = 170, cx = W/2, cy = H/2;
+  const arms = [
+    [-88,0.52,0.06,1,1],[210,0.50,0.05,-1,0.9],[22,0.51,0.05,1,0.95],
+    [-160,0.38,0.04,-1,0.5],[75,0.36,0.03,1,0.45],[145,0.37,0.04,-1,0.5],
+    [-42,0.35,0.03,1,0.42],
+  ];
+  let t = 0, dir = 1;
+  const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+  const map=(v,a,b,c,d)=>c+(d-c)*clamp((v-a)/(b-a),0,1);
+  const eio=t=>t<0.5?2*t*t:-1+(4-2*t)*t;
+  const eo=t=>1-Math.pow(1-t,3);
+  const bez=(t,sx,sy,mx,my,ex,ey)=>{const mt=1-t;return[mt*mt*sx+2*mt*t*mx+t*t*ex,mt*mt*sy+2*mt*t*my+t*t*ey]};
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    for(let i=0;i<arms.length;i++){
+      const a=arms[i],stg=i*0.038,aP=eio(clamp(map(t,stg,0.38+stg*0.5,0,1),0,1));
+      if(aP<=0)continue;
+      const ang=a[0]*Math.PI/180,L=Math.sqrt(W*W+H*H)/2*a[1];
+      const sx=cx+Math.cos(ang)*L,sy=cy+Math.sin(ang)*L,pa=ang+Math.PI/2,mL=L*0.42;
+      const mx=cx+Math.cos(ang)*mL+Math.cos(pa)*(W*a[2]*a[3]),my=cy+Math.sin(ang)*mL+Math.sin(pa)*(H*a[2]*a[3]);
+      const steps=48,endIdx=Math.floor(aP*steps);
+      if(endIdx<1)continue;
+      const pts=[];for(let k=0;k<=endIdx;k++)pts.push(bez(k/steps,sx,sy,mx,my,cx,cy));
+      const op=map(aP,0,0.15,0,1);
+      const grad=ctx.createLinearGradient(sx,sy,cx,cy);
+      grad.addColorStop(0,`rgba(232,184,75,${0.5*op})`);
+      grad.addColorStop(0.6,`rgba(242,237,224,${0.55*op})`);
+      grad.addColorStop(1,'rgba(242,237,224,0)');
+      ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);
+      for(let p=1;p<pts.length;p++)ctx.lineTo(pts[p][0],pts[p][1]);
+      ctx.strokeStyle=grad;ctx.lineWidth=a[4];ctx.lineCap='round';ctx.stroke();
+    }
+    const cP=eo(clamp(map(t,0.35,0.55,0,1),0,1));
+    if(cP>0){
+      const h1=ctx.createRadialGradient(cx,cy,0,cx,cy,26*cP);
+      h1.addColorStop(0,'rgba(232,184,75,0.25)');h1.addColorStop(1,'rgba(232,184,75,0)');
+      ctx.beginPath();ctx.arc(cx,cy,26*cP,0,Math.PI*2);ctx.fillStyle=h1;ctx.fill();
+      const r=5*cP;
+      const h3=ctx.createRadialGradient(cx-r*0.35,cy-r*0.35,0,cx,cy,r);
+      h3.addColorStop(0,'rgba(255,255,255,1)');h3.addColorStop(0.5,'rgba(232,184,75,1)');h3.addColorStop(1,'rgba(180,130,40,1)');
+      ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=h3;ctx.fill();
+    }
+  }
+  function animate(){t=Math.min(1,t+0.012);draw();if(t<1)requestAnimationFrame(animate);}
+  window.__playLobbyAnim = () => { t=0; animate(); };
+  window.__playLobbyAnim();
+})();
+
+// ── Main sequence ──
+async function runSequence() {
+  // 1. Lobby
+  showScene('scene-lobby');
+  window.__playLobbyAnim();
+  await sleep(1800);
+  tapAt(0.5, 0.72);
+  await sleep(400);
+
+  // 2. Ads feed
+  showScene('scene-ads');
+  document.getElementById('adsBody').scrollTop = 0;
+  await sleep(1000);
+  await smoothScroll(document.getElementById('adsBody'),
+      document.getElementById('adsBody').scrollHeight, 2400);
+  await sleep(900);
+
+  // 3. Switch to Explore tab
+  tapAt(0.375, 0.945);
+  await sleep(300);
+  renderSPList(ALL_SPS);
+  showScene('scene-explore');
+  document.getElementById('exploreBody').scrollTop = 0;
+  document.getElementById('searchQueryBox').textContent = '';
+  document.getElementById('searchLocBox').textContent = 'Location';
+  await sleep(900);
+
+  // 4. Scroll through the 20 listings, lingering longer this time
+  await sleep(600);
+  await smoothScroll(document.getElementById('exploreBody'), 500, 2200);
+  await sleep(1200);
+  await smoothScroll(document.getElementById('exploreBody'),
+      document.getElementById('exploreBody').scrollHeight, 2000);
+  await sleep(1300);
+  await smoothScroll(document.getElementById('exploreBody'), 0, 1200);
+  await sleep(700);
+
+  // 5. Type search query — rebuild HTML each keystroke, avoids
+  // stale child-node references after the box gets reset each loop.
+  const qBox = document.getElementById('searchQueryBox');
+  let typed = '';
+  for (const ch of 'kids party') {
+    typed += ch;
+    qBox.innerHTML = typed +
+        '<span style="display:inline-block;width:1px;height:13px;' +
+        'background:#212529;vertical-align:middle;animation:blink 0.8s infinite;"></span>';
+    await sleep(80);
+  }
+  await sleep(300);
+  document.getElementById('searchLocBox').textContent = 'Malmesbury';
+  await sleep(500);
+  tapAt(0.5, 0.72);
+  await sleep(400);
+
+  // 6. Show 3 results
+  renderSPList(KIDS_PARTY_RESULTS);
+  await sleep(1400);
+
+  // 7. Tap first result → profile
+  tapAt(0.5, 0.22);
+  await sleep(300);
+  showScene('scene-profile');
+  const profileScroll = document.querySelector('#scene-profile .app-body');
+  profileScroll.scrollTop = 0;
+  await sleep(1800); // read About + Services first
+  await smoothScroll(profileScroll, profileScroll.scrollHeight, 2200);
+  await sleep(2600); // linger on Operating Hours + Payment Methods
+
+  // 8. Tap Message
+  tapAt(0.5, 0.88);
+  await sleep(300);
+  showScene('scene-chat');
+  document.getElementById('chatBody').innerHTML = '';
+  document.getElementById('chatInputText').innerHTML =
+      '<span style="color:#94A3B8;">Message...</span>';
+  await sleep(700);
+
+  // 9. Type the message into the input bar
+  const chatInput = document.getElementById('chatInputText');
+  const msg = "Hi I am in need of a kids party organiser";
+  chatInput.textContent = '';
+  for (let i = 0; i < msg.length; i++) {
+    chatInput.textContent = msg.slice(0, i + 1);
+    await sleep(35);
+  }
+  await sleep(500);
+
+  // 10. Send it — appears as a bubble, input clears
+  const chatBody = document.getElementById('chatBody');
+  await sendBubble(chatBody, chatInput, 'mine', msg);
+  await sleep(900);
+
+  // 11. Full, warm conversation — SP genuinely supporting an
+  // overwhelmed mum, taking the load off her one question at a time.
+  await theirTurn(chatBody, "Hi! Of course, I'd love to help make this special. 😊 First things first — what's the theme you have in mind?");
+  await sleep(1400);
+  await sendBubble(chatBody, chatInput, 'mine', "Cowboys and crooks! It's for my son, he's turning 9");
+  await sleep(1100);
+
+  await theirTurn(chatBody, "Oh that's such a fun one — the boys are going to love it! Happy early birthday to him 🤠");
+  await sleep(1000);
+  await theirTurn(chatBody, "When is the big day?");
+  await sleep(1300);
+  await sendBubble(chatBody, chatInput, 'mine', "Saturday, 16 May 2026 at 12pm");
+  await sleep(1100);
+
+  await theirTurn(chatBody, "Perfect, noted! And where's the venue — what's the address?");
+  await sleep(1300);
+  await sendBubble(chatBody, chatInput, 'mine', "1 Main Road, Malmesbury");
+  await sleep(1100);
+
+  await theirTurn(chatBody, "Got it, thank you 🙏 Just one more thing — any dietary requirements I should know about for the kids?");
+  await sleep(1300);
+  await sendBubble(chatBody, chatInput, 'mine', "None that I know of — honestly whatever will make the boys happy, and easy for them to grab and go!");
+  await sleep(1300);
+
+  await theirTurn(chatBody, "That's exactly the spirit for a 9-year-old's party 😄 Please don't worry about a single thing from here.");
+  await sleep(1600);
+  await theirTurn(chatBody, "I'll handle the decor, the menu, the play props, and anything else that comes up along the way. I'll be in touch to organise and finalise everything with you.");
+  await sleep(1500);
+  await theirTurn(chatBody, "You've got enough on your plate — let me take this one off it 💛");
+  await sleep(2200);
+
+  // ── PART TWO — after the party ──────────────────────────────
+
+  // 12. Time-skip banner
+  showScene('scene-timeskip');
+  const tsText = document.getElementById('timeskipText');
+  tsText.style.opacity = '0';
+  await sleep(200);
+  tsText.style.opacity = '1';
+  await sleep(2400);
+  tsText.style.opacity = '0';
+  await sleep(900);
+
+  // 13. Messages list — Little Stars at top, plus 4 earlier
+  // conversations for realism (Deep Clean Diva and Sew Perfect
+  // Tailoring reuse SPs already seen elsewhere in the demo).
+  const conversations = [
+    ["Little Stars Party Planners","LS","You've got enough on your plate — let me take this one off it 💛","Just now"],
+    ["Sew Perfect Tailoring","SP","Your dress alterations are ready for collection!","2d"],
+    ["Nail Perfection Studio","NP","See you Friday at 2pm for your appointment 💅","4d"],
+    ["Retief Tax Consulting","RT","I've submitted your return, confirmation attached.","1w"],
+    ["Deep Clean Diva","DC","Thanks for the tip, see you next month!","2w"],
+  ];
+  const msgBody = document.getElementById('messagesBody');
+  msgBody.innerHTML = conversations.map(([name,ini,preview,time]) => `
+    <div class="msg-list-row">
+      <div class="msg-avatar">${ini}</div>
+      <div style="flex:1;min-width:0;">
+        <div class="msg-list-name">${name}</div>
+        <div class="msg-list-preview">${preview}</div>
+      </div>
+      <div class="msg-list-time">${time}</div>
+    </div>
+  `).join('');
+  showScene('scene-messages');
+  await sleep(3400);
+
+  // 14. Tap the top conversation — back into the SAME chat thread,
+  // full previous conversation still intact, continuing naturally.
+  tapAt(0.5, 0.16);
+  await sleep(300);
+  showScene('scene-chat');
+  chatBody.scrollTop = chatBody.scrollHeight;
+  await sleep(1200);
+
+  // 15. The thank-you exchange
+  await sendBubble(chatBody, chatInput, 'mine',
+      "Thank you sooo much for the amazing party! The kids loved the decor, the food, the props — everything was amazing, and my boy can't be convinced otherwise that it was the best party ever 🥹");
+  await sleep(1500);
+  await theirTurn(chatBody,
+      "I appreciate your appreciation so much! It's always wonderful hearing that from our clients. Would you mind taking a moment to rate our service?");
+  await sleep(1300);
+  await sendBubble(chatBody, chatInput, 'mine', "No problem, we can definitely do that!");
+  await sleep(1600);
+
+  // 16. Tap the SP's avatar in the chat header → their profile
+  tapAt(0.155, 0.09);
+  await sleep(300);
+  showScene('scene-profile');
+  const profileScroll2 = document.querySelector('#scene-profile .app-body');
+  profileScroll2.scrollTop = 0;
+
+  // Reset the review widget for a clean loop each time
+  document.querySelectorAll('.star').forEach(st => st.classList.remove('filled'));
+  document.getElementById('reviewTextBox').textContent = '';
+  document.getElementById('postedReview').style.display = 'none';
+  document.getElementById('postedReview').textContent = '';
+  document.getElementById('newReviewBox').style.display = 'block';
+  document.getElementById('msgBtn').style.display = 'block';
+
+  await sleep(1000);
+  await smoothScroll(profileScroll2, profileScroll2.scrollHeight, 2000);
+  await sleep(900);
+
+  // Hide the floating Message button — it sits on top of the review
+  // field once scrolled down, blocking the view while typing.
+  document.getElementById('msgBtn').style.display = 'none';
+
+  // 17. Select 5 stars, one at a time
+  const stars = document.querySelectorAll('#starRow .star');
+  for (let i = 0; i < 5; i++) {
+    stars[i].classList.add('filled');
+    await sleep(180);
+  }
+  await sleep(500);
+
+  // 18. Type the review
+  const reviewBox = document.getElementById('reviewTextBox');
+  const reviewText = "Absolutely incredible experience from start to finish! The decor was beautiful, the kids were entertained the whole time, and I didn't have to lift a finger. My son says it was the best birthday ever. Cannot recommend Little Stars enough — thank you for everything! 🌟";
+  reviewBox.textContent = '';
+  for (let i = 0; i < reviewText.length; i++) {
+    reviewBox.textContent = reviewText.slice(0, i + 1);
+    if (i % 3 === 0) reviewBox.scrollTop = reviewBox.scrollHeight;
+    await sleep(18);
+  }
+  await sleep(700);
+
+  // 19. Post the review
+  tapAt(0.5, 0.78);
+  await sleep(200);
+  document.getElementById('newReviewBox').style.display = 'none';
+  const posted = document.getElementById('postedReview');
+  posted.style.display = 'block';
+  posted.innerHTML = '★★★★★ "' + reviewText + '" — just now';
+  await sleep(4200);
+
+  // Loop back to the very start
+  await runSequence();
+}
+
+async function sendBubble(chatBody, chatInputEl, who, text) {
+  const b = document.createElement('div');
+  b.className = 'bubble ' + who;
+  b.textContent = text;
+  chatBody.appendChild(b);
+  if (who === 'mine') {
+    chatInputEl.innerHTML = '<span style="color:#94A3B8;">Message...</span>';
+  }
+  await sleep(50);
+  b.classList.add('show');
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+async function theirTurn(chatBody, text) {
+  const typingBubble = document.createElement('div');
+  typingBubble.className = 'bubble theirs';
+  typingBubble.textContent = '• • •';
+  chatBody.appendChild(typingBubble);
+  await sleep(50);
+  typingBubble.classList.add('show');
+  chatBody.scrollTop = chatBody.scrollHeight;
+  await sleep(1100 + Math.random() * 500);
+  typingBubble.remove();
+
+  const b = document.createElement('div');
+  b.className = 'bubble theirs';
+  b.textContent = text;
+  chatBody.appendChild(b);
+  await sleep(50);
+  b.classList.add('show');
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+runSequence();
+</script>
+</body>
+</html>
