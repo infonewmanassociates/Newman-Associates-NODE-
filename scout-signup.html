@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Become a NODE Scout</title>
+<meta name="description" content="Help local businesses in Swartland get found on NODE, and get paid every Saturday.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Become a NODE Scout">
+<meta property="og:description" content="Help local businesses get found. Get paid every Saturday. Read how it works and apply online.">
+<meta property="og:url" content="https://newmanassociates.co.za/scout-signup.html">
+<meta property="og:image" content="https://newmanassociates.co.za/node_feature_graphic.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --deep: #16382A;
+  --deep-2: #1E4636;
+  --wheat: #E8B84B;
+  --wheat-dark: #B8860B;
+  --ink: #1B2A24;
+  --muted: #5C6B64;
+  --line: #D7DFD9;
+  --field: #FFFFFF;
+  --page: #F1F4F0;
+  --danger: #B3261E;
+  --ok: #1F7A4D;
+  --head: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55; }
+a { color: var(--deep-2); }
+:focus-visible { outline: 3px solid var(--wheat); outline-offset: 2px; }
+
+.band { background: var(--deep); color: #F2EDE0; padding: 28px 20px 40px; }
+.band-inner, .wrap { max-width: 640px; margin: 0 auto; }
+.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+.brand img { width: 44px; height: 44px; border-radius: 10px; display: block; }
+.brand span { font-family: var(--head); font-weight: 700; font-size: 20px; letter-spacing: 0.04em; }
+h1 { font-family: var(--head); font-weight: 700; font-size: clamp(30px, 7vw, 44px); line-height: 1.08; margin: 0 0 14px; letter-spacing: -0.01em; }
+.lede { margin: 0; font-size: 18px; color: #D9E3DC; max-width: 52ch; }
+
+.about { margin: 16px 0 0; font-size: 16px; }
+.about a { color: var(--wheat); font-weight: 600; text-underline-offset: 3px; }
+.earn { list-style: none; margin: 30px 0 0; padding: 0; position: relative; }
+.earn::before { content: ""; position: absolute; left: 9px; top: 12px; bottom: 12px; width: 2px; background: rgba(232,184,75,0.45); }
+.earn li { position: relative; padding: 0 0 18px 38px; }
+.earn li:last-child { padding-bottom: 0; }
+.earn li::before { content: ""; position: absolute; left: 0; top: 5px; width: 20px; height: 20px; border-radius: 50%; background: var(--deep); border: 3px solid var(--wheat); }
+.earn li:last-child::before { background: var(--wheat); }
+.earn strong { display: block; font-family: var(--head); font-size: 19px; color: #fff; font-weight: 500; }
+.earn span { color: #C9D6CE; font-size: 16px; }
+
+.wrap { padding: 0 20px 60px; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 26px 22px; margin-top: -22px; position: relative; box-shadow: 0 6px 24px rgba(22,56,42,0.07); }
+.card h2 { font-family: var(--head); font-weight: 700; font-size: 24px; margin: 0 0 4px; }
+.sub { margin: 0 0 22px; color: var(--muted); font-size: 16px; }
+
+.field { margin-bottom: 18px; }
+label.lbl { display: block; font-weight: 600; margin-bottom: 6px; }
+.opt { font-weight: 400; color: var(--muted); }
+input[type=text], input[type=tel], input[type=email], select, textarea {
+  width: 100%; font: inherit; color: var(--ink); background: var(--field);
+  border: 1.5px solid #B9C6BE; border-radius: 10px; padding: 12px 14px;
+}
+textarea { min-height: 96px; resize: vertical; }
+input[aria-invalid=true], select[aria-invalid=true], textarea[aria-invalid=true] { border-color: var(--danger); }
+select { appearance: auto; }
+.err { color: var(--danger); font-size: 15px; margin-top: 5px; min-height: 0; }
+.hint { color: var(--muted); font-size: 15px; margin-top: 5px; }
+
+.agree-title { font-family: var(--head); font-weight: 700; font-size: 19px; margin: 28px 0 8px; }
+.agreement { height: 260px; overflow-y: auto; border: 1.5px solid #B9C6BE; border-radius: 10px; padding: 14px 16px; background: #FAFBF9; font-size: 15.5px; }
+.agreement h3 { font-family: var(--head); font-size: 16px; margin: 14px 0 3px; color: var(--deep); }
+.agreement h3:first-child { margin-top: 0; }
+.agreement p { margin: 0 0 6px; }
+.agreement .intro { font-style: italic; color: var(--muted); }
+.agreement ul { margin: 2px 0 8px; padding-left: 20px; }
+.agreement li { margin-bottom: 4px; }
+.need { margin: 0 0 22px; padding: 14px 18px 14px 34px; background: #F4F8F4; border: 1px solid var(--line); border-radius: 10px; font-size: 16px; }
+.need li { margin-bottom: 4px; }
+.need li:last-child { margin-bottom: 0; }
+
+.check { display: flex; gap: 12px; align-items: flex-start; margin: 14px 0; }
+.check input { width: 22px; height: 22px; margin-top: 3px; accent-color: var(--deep); flex-shrink: 0; }
+.check label { font-size: 16.5px; }
+
+.privacy { font-size: 14.5px; color: var(--muted); margin: 18px 0 0; }
+
+button.send {
+  display: block; width: 100%; margin-top: 22px; padding: 15px 18px; font: inherit; font-weight: 600; font-size: 18px;
+  background: var(--deep); color: #fff; border: 0; border-radius: 10px; cursor: pointer;
+}
+button.send:hover { background: var(--deep-2); }
+button.send:disabled { opacity: 0.6; cursor: wait; }
+.status { margin-top: 14px; font-size: 16px; }
+.status.bad { color: var(--danger); }
+
+.done { display: none; text-align: left; }
+.done h2 { color: var(--ok); }
+.done p { margin: 0 0 10px; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+footer { max-width: 640px; margin: 0 auto; padding: 0 20px 40px; color: var(--muted); font-size: 14.5px; }
+@media (min-width: 700px) { .card { padding: 34px 36px; } .band { padding-top: 36px; } }
+</style>
+</head>
+<body>
+
+<header class="band">
+  <div class="band-inner">
+    <div class="brand">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAYAAAA5ZDbSAAASoElEQVR42u2deZBdVZ3HP79z7n3d7/WSDlmBQJBhyQIBhUAwSFQcwQIVkCe4MCqLlDAUThVClTU1iFVjjeJojciIYhx0jAPToDAIOksRgiJJMCBIdxYV2bN0Z+ntrfec3/xx3+tESHpLd7pf9/1V3STVuf3ueed7v7/9nCOMVLJYFqHchq/+aM5ZC05Sb85S0aWiLFbkSIHDQDOIWBLZK6oRIr3ADuCPwHox8oTfo093tLf3Vu4SsllDa6sb6WNkBL9jKn97gLlnLl7ojV6KcgFwilhTH38BUFVQTcAcYPYFAREQUK+o6p9F+KWqrOpY2/bk/uZ87ADOZm31bZq7bMEKJ+ZGgQuNtaF6Rb0HxQMaj7z/SuQAPK78qZU5s2IEMQb1HlV9XDBf3/7UC48AsGJFwJo10VgAbCqD0TlLFy7WQL4sIpcggjofqxvE7ANqIiMXj6oiYsQaAVDnH0GjL+5Yt+X5feZXhwrc4LY2Vg06a9nimzUw68XaS9SrauRc/OZJgGAScEdFTMVfEY2c08h7sfYCbLh21rLFN1eJVsHlIBmcxdKKm3PWktmKu0es+YBGDlRd4jQdUofMIWJNYPGR+7ktR5/ZumFLZxWfkQG8goA1RNNPX3BSGNqfGmuO9+Uoqr5dyayPg71WdSYMAu/dpsjJJbvWtW2s4jQ8FZ3FsoZoxtKTTg9D+5iIVMENEnDH0ecWCXw5ikTMgtDo6plnLjiNNUQDqev9gWUBFztT5nERZqrziUqeYCpbrLGq7FTHuR3r2547kLqW/XnLc88+bqaLUmuNMceqcwm4ExZka1X9a7bE8q0b2l+p4OcPpKKFbFYA9eXwxyawx6pzUQLuRFXYYtW5SIyZ50IemLdsXprsW8NUs4/dNbS2ulnLFn7BhMH7da/NTWTighxo5CIT2NOL2vQtWnGsWGH3p6INoDPPXnC8cfY5VMPKzxKHqjbUdSRBEPjIX9qxru2BfTOOMYNvjW+TSG4XY+or+eME3NphssF7FdE75i1bdBitrVrFz5DNWm7Dzzpz0dnGmA9plDhVNShGvXcmsIeXVL8EeLJZEwO8aFE1p3kLYkjKP7XrdPnIeYy5dubSBSfQ2urJYi1r1ujMsxecYFS+iaok7K3hRIiqk8CGgjb2vdb5EIuzJqZxZC43gQ1Qdck8jTaxBBE5ZCzWyKuKXH7YGSfPo7XVGcCo8kFV5dCNZOpI5BxRFB1CFntnrU1bE30cwMw9c/GJIpyszr858ZHIKMis6Ycxe+YszKFjsaiqolwKmMCLWy4mqFPnfaWmm8goqOXIRcw+bCZHzj0cIwZrDNs6dmCtjVuZxtKjdl5EOHXOWQsWGUXOqES8ifc8qskHsNYiQEM6Q3NTM151rMGtqGm8WBvi5b2BKItRrXR/JTIq2KpiraVz9y6stezcs5veXB8zWqbTl+ujVC5jjBnj1wsUWR4A8yovVQLwKItzjte3ba3MtpKur6epoZFiuUxfrq9fnY8BhwVVFBYZkOkVwBOAx8AWW2MIrCUIAgqlEru7u7BGmD6thSAI8N6PyaNj0uoRBjSTWN+x1ZVasb1VT7qrp4e+fI7mxiYaGxr7/3+Ukx4gNJkkc3XoxRhDqVRid9cezH7YLICR+JKDQlnCYCJ82YN1aEbbMx3RmFTxwxhH1fZ29/RQV1dHc2MTxVKJvnwfzkPk46pAaIXAjDzEGXeAc/kccQg+vC9RvT8V1pEKg1EDWdXT25dD93nGoP4MirUB9am6YUeb/Wwul2lqaGBaUwvlYh8nH2nJpCy/e7VAZ68jtDKiMtC4AuxVOGnBKUzL1MUgD8OjrIYir7/+Z17t2D0qIKt6wlSGJYtOIZShQaWqWGPp6d7J5pdfRkwwbJD3ZXMQ1nHxaYdx/CwolsocPSPg3vU9FMvKSBzucQJYMHjy3vK12+5k+fGHj/iTNj63mndfdSVKeFC5GhFDVCpw2OEL+dnKe2ka5mQ+s/bnnHvtddQ1tqB+hDUbMYiWaU4VKEQZ8mVDS1qZ2Wh5aWeZumD4LB731GQ5KqOqRM7129OhXpFzLDzlPXzifeewp6eHwI7G11FK5fjzvR/CGKIIVaXsDr4QZwwUInhlV0QmBY110Nnr6OhxhKYGVXRVPe17DWtCJHZE/u7qG2hd/SQFFzd166iMqfrvIY5/1AJYz7qXlL5yHh8VaNtaJl/2McAjeWlqO9ywePUcddzpXHXheXT1dGFt7UZ93kMYBNggxZqNXazZUqArN3Jwax7gfm9a4forr+folgyFyFOrVW1VTyaTplgqkrKeTOrgQqRJAbAxBq+eWUcu4rqPfJieni6ssTUIrhKGIYENyBcKIAavB29uJkX9N7bFytVXfI4T57SQL0UYqT2AG9IZ8oXCsBImUwLguC3Y0zzzGG782Efp6+3G1BCLVZW6VApjhEKxMKrdH5Omg8MYwavyycuu4ZRj5tBXLB+6NplRkEw6Qy6fH/15mSwAi8Qbl9Q3z+WmK66gkOtBaoDFqkp9XR2qSqFYHPX68KTqwYodLuWSiz7FWSccTW++gKkBY5yuT9OXz41J8X9SASwiqPcE6encfOVVRMU+RMyEZa6q0pDJEEUR5XI5AXgoYm3M4vM/cDnnLjmB7lweO8FYrKoE1jJv7hEce9R8Ijd26w0mYZtszGIJGrjl6msxUQGdYCxWVVKpFA3pNM556lKp/qRNAvBQWeyVs99zMRcsXcKe3j6smThf1RhDoVikc/cuOnfvpLevNzYvCcD7sGAQFoMHSXHzZ68nTRnPxFPTnXt2s31nJ/GK3bEZX80CLIOyxOK85+1nnsel55xJV0/vKJUTR3HyRTBjvDitJgEulgoUy3EdVge2xiiWm665gWkpJfJMOakpgFVjhDq3/pF7Hno4fvMH6J4wxuK954STz+ETf72i0hRgE4AnujTVh9z947t4cVeuUnXRAVW5Knz+6huY0xBQcn5KdfjXJMCpugZ2vLaRb6y6rz+5MZDH6tVz1F+dxlUXnk93T3dNNwVMCYCdd7Q0NbCq9fts2dEVg+h1wC+pCtd/5nqOnp6hELkpw+KaBFhVCcJ6ujte4us//PeKF3pgFouJy4kzj1zIdR+5iJ4pxOKaDZMi55jW1MQDD/6QZ1/egRGDG4jFBrwqV13xORbMbSFXiqbEjhU1nMlSbJCi0L2Nr/7g+yDxGoMDslgM6pXmGfP5/McuI9c3NVhc06lKV2HxI4/eyxObX8EYwQ3ocMUs/vhl13Dq/Ln0FUo11RQw5QBGFbEhWtjNV+++q/+ol4FZ7KlvmsNNfxM3BRhjE4AnOoubm5tZ/djP+MWzmwdlsa00BVx80ad454nz6c4XJjWLJ0U1SbEEro+vfe9OogqL9cA0jpsC6lu4+cqr8MW+mmjtmdIAe+9oamxm7W8e5f5fPxvHxW5wFp93/uWce8qJdPXlJlxTQALwm0HGUG8i/vnuO8i7Sq/0ICyWIMMtV1+LdROvKSABeD8sbmho4vlnVvPj//t1nNwYoBUmbgrwLH/3xVx45ql0TbCmgATg/TlcCg2h8C8r76Cr5DEy0JJLiReMS8gt11xHvUy8poAE4Dc7W96TzjSype0pvv/w/1RSlAOxOC4nnnLGeWTPWcaenp5Jl/yYdDrJeaU5HfKde+5kR18JY2SQrR0UxXDTZ2+gJQWR10nF40kHsKqnrr6BV1/8HXfe/1D/uqUDTkClKeC4Rcu54v3vpqunh8lE4knpOjqvTGuoZ+Wq7/LKnlz/iocBrDGqcOPVfxs3BUQJwBOexWEqTcfrm/jmqnuH0BRgUZRjFryTz374Anp6+xKAJ7pE3tPS2MCq/1zJpu17hsBiUBWuvPzTzG1MVcPlBOAJTGOCsJ6ezpe4/Z4fxSzWAZoCKhuvpNMNpFNhwuDaYLFjWnMzP33oR2x4eTtWzICFiPi9mFw7s07uLfxVMTak2L2Nr60cvCmgyuQE4FryqF3M4kd/cR9rNr2MMYOzOAG4xkRMgBZ389W7v4OfYmcXTAmAnXM0NzXz+GMP8uiGTWPGYiNgjexzjf82+lPmGB3FEvgct9/9bcow7O2LB/t08ORKyq4+13/tyXmcwniueZsyB0B772hsbGbdU7/k/l89w8fe9Q6c89iDnv14Z2k1aRYfkeJ975jOEc2GQtnT/kaR1ZtzdPY6muvjjc0SgMeUxXFTwDfuvoOL3vlv1Bv6N/4esV6wFnVF5pu1PHjj25g1vRFf2eDcK7zYUeIfH9nJfz3XOy4gT6mTzvqbAp59nB/97xNxIWLE+2MoqKK+zJ5nbkM6V5Oqy9DZU2Z3RUXvzjmOnB6y8tOHc/nSZroL/pCr6yl3lJ2vNAV8a+W36Sr6SjlxZDE2Yuh7sZXCticgNR2vnmAfJyswQr6k5EqeL394JsfPTpEv6SFNgU49gCtNAX9oX8v3Hv5lpZzohs9eMWiUI//qo5iwCfz+F7RZA8WyMrPJctnSZvJlPaT7aE7JwyirTQF3/fBfK00BZngbgFbujXr+jCt0wCDnNBgjFCPlHfPrSIdySO3wlAS42hTw2ovP8e3WBwctJx5QG5S7wUdDctO8wrS0JRWM0CQkAA+fxdMa6vnBqu/y8u7c8FkMmLB5UPbumwTpyjtK0RSzwV493g//Gg0Wh6kMHW9s5hur/gMRwbloaM9XxXuPaZgPqRn4qDQgi71X6gLhmZeLU88GZ+ozGGMIgwBjzICXtfE9jZnMqKQAI+9oaWzgJ60r2bS9izAIBx1DfNl4PKlG5i78KPU2wqkcQFNAXSh09Djue7qbdOrQ2mCZvWzRuBRABXAqLFm0hJZMPTro2sC9WSNXzrOh7fcUR0HdGRGKpRJvO3Yhx8yegaoOsWQYj7dYLnPt27dy/skNdPY4nO7tylQgkzLUBcINP9nOvU93My1tcH4KAFyVfD7X36qqQ3gplLhm25DOjJotExGKxTzFshtWjlokZuiM5kb+/sIZXHpaE031pj875hX+1FHmK490jlsma9wBNsaMoICno14NGtk4QEQpRZ5cyXPqUfUsPy7NvOkBhbLS9kaRx8c5Fz3uAE8GkcoxsLmSUoz0LzznhjpDaDmkanlfCRJ4RiOurtpboaHO/IWm8X78wE0AHvWQb2+Wa6KISWCZ3JIAPOkBVo2SaZi0zkFkFLorAWXiTU8iaOOIT/IGZGslYZAAPLmCNxR2GYE2ROJ10IlMGgbHh1brawb0N/2QJzJZFLQioEKbQfxj6lwZibdVTmZn8uhnA+vNjrWb2xR+J9bE3duJTAYHy6j3RSPuSRODau6XeAFtwuDaFy/WoKrPb31qyxYD4Lz5iXMuV9m0MQG5tmPfqoP1MOAN2azdtf73r4nqfRIYQdUls1TL1lesj1zkPfcBGGgFEBf5r6rzpcp5rAmLa5O9kVgrqvqLzqc3beHWW42hFUc2a3b+dvNmVO8ygTUJi2uXvqgHY/4JgPb2/qYXAWTeskUtJXhBROZq7HAlxYjaYa+TILA+cg92rGu/mGzW0trqTL9rnc3Ka2vbd6nKDZUFO0nIVFOhkaDq84reDAitrQqwd9O+9nZlxYog9+TTbZkjZsyzYXC6Oh9N2DPSE/kL9powDHzZfbFz/cafk8XSHuc05C0ZkGzWzN+xPswXG34l1pyukYsQSTo/JrJjFQaBlqP/3rFu4/kV1eyrjvL+8s8G8EecvvioKNTfiJh56pxDxCazOQHtrrVWvf+TLUfLtm7YspP+07H3gvmWTAhZ7Bu/bXsVH12gqp1ijU0864kIrrGq2mk8H9q6YUtnlZxvZutbpRVHFrtj3ZbnvbrzgG0SWJt0f0wgtRxYq0qH9+78bevb28liAbc/dcwBQV5B0Ll20zORynvU+40mDIIKyEkiZLy85arN9foHKbv3dq7btIEsllb2q2EH9pDXEJHF7nzqhU1B5N/lnHtYwiAgPvAgUdmHWCUDYsIgUOceFezZ23+76YWBwD2Qk/VW2edDZi1b/AURbhNj0ho5H58vlzhgY8hYj4iRwIo6l1OVL3Wsbbv9zbgcHMB77xXAz1524slgvyLGXIiAOq+oukrMnMTNBw0qCuoRCcSaeDcf1QeM4x+2rW9v3xeLwT7MDOvB4FmxItixdvPvd6xt/6DgLlDvV4sRMWEQiKkkRVQdSjUWS+z1UOZVqc6ZiDXGhEGAUMbrz5z6FTuear80dqaytv93hsjKkYjpD6mA2ctPXobzn1T0AyJyrFSPHdPqy5igeODZl3g9cgUJjXwBw3PAI8bywLZft7fvb86H9YgRS2wD+rMmc5YsaSDtlqroOcAZwPGgs1Eak2zYW0MdkLwKO0X1dRXaBV0vTp7a/vTGtv77bsXQjgxmaw8k/w9m+ki8L2Pe4QAAAABJRU5ErkJggg==" alt="NODE logo" width="44" height="44">
+      <span>NODE</span>
+    </div>
+    <h1>Help local businesses get found. Get paid every Saturday.</h1>
+    <p class="lede">NODE connects people in Swartland with trusted local service providers. As a Scout, you introduce providers to NODE and earn when they sign up and stay.</p>
+    <p class="about">New to NODE? <a href="https://newmanassociates.co.za/node.html">Read about the app first</a>, then come back and apply.</p>
+    <ol class="earn" aria-label="What a Scout earns">
+      <li><strong>R39 for every provider you sign up</strong><span>Paid every Saturday, for that week's signups.</span></li>
+      <li><strong>Month 6: 50% of their monthly fee</strong><span>If the provider is still subscribed and you signed up someone new in month 5. You claim it from Damian.</span></li>
+      <li><strong>Month 12, and every 12 months after: 100% of their monthly fee</strong><span>If the provider is still subscribed and you signed up someone new in the month before. You claim it from Damian.</span></li>
+    </ol>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card" id="formCard">
+    <div id="formArea">
+      <h2>Apply to become a Scout</h2>
+      <p class="sub">Fill in your details, read the agreement, and accept it. Damian will contact you on WhatsApp.</p>
+      <ul class="need" aria-label="What you will need">
+        <li>A smartphone with the NODE app installed, so you can show providers how it works.</li>
+        <li>Black pants and a NODE shirt whenever you represent NODE.</li>
+        <li>Time to learn the NODE pitch and script we give you.</li>
+      </ul>
+
+      <form id="scoutForm" novalidate>
+        <div class="field">
+          <label class="lbl" for="full_name">Full name and surname</label>
+          <input type="text" id="full_name" name="full_name" autocomplete="name" required>
+          <div class="err" id="err_full_name" role="alert"></div>
+        </div>
+        <div class="field">
+          <label class="lbl" for="phone">WhatsApp number</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="e.g. 076 123 4567" required>
+          <div class="err" id="err_phone" role="alert"></div>
+        </div>
+        <div class="field">
+          <label class="lbl" for="email">Email address <span class="opt">(optional)</span></label>
+          <input type="email" id="email" name="email" autocomplete="email">
+          <div class="err" id="err_email" role="alert"></div>
+        </div>
+        <div class="field">
+          <label class="lbl" for="town">Town where you live</label>
+          <input type="text" id="town" name="town" autocomplete="address-level2" placeholder="e.g. Malmesbury" required>
+          <div class="err" id="err_town" role="alert"></div>
+        </div>
+        <div class="field">
+          <label class="lbl" for="shirt_size">NODE shirt size</label>
+          <select id="shirt_size" name="shirt_size" required>
+            <option value="">Choose your size</option>
+            <option>XXS</option><option>XS</option><option>S</option><option>M</option>
+            <option>L</option><option>XL</option><option>XXL</option><option>XXXL</option>
+          </select>
+          <div class="hint">Scouts wear a NODE shirt with black pants.</div>
+          <div class="err" id="err_shirt_size" role="alert"></div>
+        </div>
+        <div class="field">
+          <label class="lbl" for="motivation">Why would you like to be a Scout? <span class="opt">(optional)</span></label>
+          <textarea id="motivation" name="motivation" maxlength="1000"></textarea>
+          <div class="hint">For example: which businesses or people you already know.</div>
+        </div>
+
+        <!-- spam trap: real people never see or fill this -->
+        <div class="hp" aria-hidden="true">
+          <label for="website">Leave this empty</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <h3 class="agree-title">Scout Agreement</h3>
+        <div class="agreement" tabindex="0" role="region" aria-label="Scout Referral Agreement and Non-Disclosure Agreement">
+          <p class="intro">Scout Referral &amp; Non-Disclosure Agreement, version 1.2. Please scroll and read all of it.</p>
+          <p>This Agreement is made between Newman &amp; Associates (Pty) Ltd, trading as NODE ("the Company"), and the person applying below ("the Scout").</p>
+
+          <h3>1. Appointment and referral code</h3>
+          <p>If the Company approves this application, it appoints the Scout as an independent introducer, referring prospective Service Providers ("SPs") to the NODE platform using a unique referral code that the Company will issue to the Scout. Commission under this Agreement applies only to SPs who registered using that code.</p>
+
+          <h3>2. Scout duties</h3>
+          <p>The Scout's duties are to:</p>
+          <ul><li>(a) introduce NODE to prospective SPs in and around their area, using their referral code;</li><li>(b) present NODE to each SP using the Company's official pitch and script, explaining honestly how NODE works and what it offers;</li><li>(c) ask each SP what services, support, or accommodations they need, and motivate them to make full use of the platform;</li><li>(d) where possible, help the SP in person to download the app, register, and complete their first payment, so they are fully onboarded (encouraged, though not required); and</li><li>(e) follow the Company's reasonable instructions on how NODE is presented.</li></ul>
+
+          <h3>3. Smartphone and the NODE app</h3>
+          <p>The Scout must own a smartphone, and must download and install the NODE app from Google Play before approaching any SP. The Scout must be able to demonstrate the app to SPs, explaining how it works and its benefits.</p>
+
+          <h3>4. Official pitch and script</h3>
+          <p>The Scout will learn the Company's official pitch and script and present them as provided. The Scout will not make promises or guarantees about NODE, including about income, customers, or results, that are not in the official material.</p>
+
+          <h3>5. Dress code and presentation</h3>
+          <p>When representing NODE, the Scout must wear black pants and a NODE shirt in the size the Scout selects above (XXS to XXXL), and must always be neat, presentable, and friendly. The Company will confirm in writing, before the Scout starts, how the NODE shirt is supplied and any cost.</p>
+
+          <h3>6. Representing the brand</h3>
+          <p>The Scout represents NODE and Newman &amp; Associates (Pty) Ltd, and must at all times uphold their names and reputation. The Scout will do nothing that may reasonably damage the image or reputation of NODE or the Company, and will not speak negatively about any SP, client, or the Company, whether publicly or privately.</p>
+
+          <h3>7. Signup commission</h3>
+          <p>The Scout earns R39 (thirty-nine Rand) for each SP who signs up using the Scout's referral code. Signup commission is paid weekly, every Saturday, covering all qualifying signups from that week.</p>
+
+          <h3>8. 6-month commission</h3>
+          <p>If the referred SP remains actively subscribed to NODE, with no break in payment, for a continuous 6 (six) months from their signup date, the Scout may claim a further commission equal to 50% of the subscription fee due for that 6th month.</p>
+
+          <h3>9. 12-month commission</h3>
+          <p>If the referred SP remains actively subscribed to NODE, with no break in payment, for a continuous 12 (twelve) months from their signup date, the Scout may claim a further commission equal to 100% of the subscription fee due for that 12th month. The Scout may claim the same commission again at every 12-month anniversary after that (month 24, month 36, and so on), for as long as the SP remains continuously subscribed.</p>
+
+          <h3>10. Conditions</h3>
+          <p>The 6-month and 12-month commissions are payable only while the SP's subscription has continued without any break or lapse in payment from signup to that milestone. A lapsed or cancelled subscription ends the Scout's entitlement to any further milestone commission for that SP.</p>
+
+          <h3>11. Active Scout and claiming</h3>
+          <p>The 6-month and 12-month commissions are payable only if the Scout is an active Scout, meaning at least one SP (any SP) signed up using the Scout's referral code during month 5 after the referred SP's signup date (for the 6-month commission), or during month 11 of the relevant 12-month period, that is month 11, month 23, month 35, and so on (for each 12-month commission). These commissions are not paid automatically. The Scout must contact the Company directly to claim each one.</p>
+
+          <h3>12. Payment details</h3>
+          <p>Commission will be paid to the Scout's nominated account. The Scout will give the Company their banking details directly when the Company contacts them.</p>
+
+          <h3>13. Confidentiality</h3>
+          <p>The Scout will not share any SP's or client's personal or business information with any other SP or client. The Scout will not disclose any non-public information about NODE's internal operations, management, technology, strategy, or plans to any SP, client, or third party. This clause survives the termination of this Agreement.</p>
+
+          <h3>14. No employment relationship</h3>
+          <p>This Agreement does not create an employment, agency, or partnership relationship between the Scout and the Company. The Scout is not an employee of NODE or Newman &amp; Associates (Pty) Ltd, and acts as an independent introducer, consistent with Section 14 of NODE's Terms &amp; Conditions.</p>
+
+          <h3>15. Electronic acceptance</h3>
+          <p>The Scout agrees that ticking the acceptance box and typing their full name below has the same effect as a handwritten signature. This Agreement takes effect when the Company approves the application and issues the Scout a referral code. The Company may decline any application.</p>
+
+          <h3>16. Warranties and governing law</h3>
+          <p>The Scout confirms they are 18 years or older, act on their own behalf, and have the right to enter this Agreement. This Agreement is governed by the laws of the Republic of South Africa.</p>
+        </div>
+
+        <div class="check">
+          <input type="checkbox" id="smartphone_confirmed" name="smartphone_confirmed">
+          <label for="smartphone_confirmed">I own a smartphone and can install the NODE app from Google Play.</label>
+        </div>
+        <div class="err" id="err_smartphone_confirmed" role="alert"></div>
+
+        <div class="check">
+          <input type="checkbox" id="age_confirmed" name="age_confirmed">
+          <label for="age_confirmed">I am 18 years or older.</label>
+        </div>
+        <div class="err" id="err_age_confirmed" role="alert"></div>
+
+        <div class="check">
+          <input type="checkbox" id="terms_accepted" name="terms_accepted">
+          <label for="terms_accepted">I have read and accept the Scout Agreement above and the NODE <a href="https://newmanassociates.co.za/node-terms.html" target="_blank" rel="noopener">Terms &amp; Conditions</a>.</label>
+        </div>
+        <div class="err" id="err_terms_accepted" role="alert"></div>
+
+        <div class="field" style="margin-top:16px">
+          <label class="lbl" for="signed_name">Type your full name to sign</label>
+          <input type="text" id="signed_name" name="signed_name" autocomplete="off" required>
+          <div class="hint">This must match the name you entered at the top.</div>
+          <div class="err" id="err_signed_name" role="alert"></div>
+        </div>
+
+        <p class="privacy">We use your details only to process this application and contact you. They are kept securely and are not shared. See the <a href="https://newmanassociates.co.za/node-terms.html#privacy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+
+        <button type="submit" class="send" id="sendBtn">Send my application</button>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+
+    <div class="done" id="doneArea" tabindex="-1">
+      <h2>Application received</h2>
+      <p>Thank you. Damian will contact you on WhatsApp soon.</p>
+      <p>Your referral code is issued after your application is approved. Please do not start referring providers before then.</p>
+    </div>
+  </section>
+</main>
+
+<footer>NODE is run by Newman &amp; Associates (Pty) Ltd, Malmesbury, Western Cape. Questions: info@newmanassociates.co.za or WhatsApp +27 76 199 9072.</footer>
+
+<script>
+(function () {
+  // ---- Settings (the key below is NODE's public "publishable" key, safe to include in a web page) ----
+  var SUPABASE_URL = 'https://wpdloumhigisdrgyebmu.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_Q9693UMjOpRGbx3vMj-bcA_0e4oknND';
+  var AGREEMENT_VERSION = 'scout-v1.2-draft';
+
+  var form = document.getElementById('scoutForm');
+  var btn = document.getElementById('sendBtn');
+  var statusEl = document.getElementById('status');
+
+  function $(id) { return document.getElementById(id); }
+  function setErr(id, msg) {
+    var box = $('err_' + id), input = $(id);
+    box.textContent = msg || '';
+    if (input && input.type !== 'checkbox') input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+  }
+  function norm(s) { return (s || '').replace(/\s+/g, ' ').trim().toLowerCase(); }
+
+  function validate() {
+    var ok = true, first = null;
+    function fail(id, msg) { setErr(id, msg); ok = false; if (!first) first = $(id); }
+    ['full_name','phone','email','town','shirt_size','smartphone_confirmed','age_confirmed','terms_accepted','signed_name'].forEach(function (id) { setErr(id, ''); });
+
+    var name = $('full_name').value.trim();
+    if (name.length < 3 || name.indexOf(' ') === -1) fail('full_name', 'Enter your first name and surname.');
+
+    var phone = $('phone').value.replace(/[\s()-]/g, '');
+    if (!/^(\+?27|0)\d{9}$/.test(phone)) fail('phone', 'Enter a South African number, like 076 123 4567.');
+
+    var email = $('email').value.trim();
+    if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) fail('email', 'That email address does not look right.');
+
+    if ($('town').value.trim().length < 2) fail('town', 'Enter the town where you live.');
+    if (['XXS','XS','S','M','L','XL','XXL','XXXL'].indexOf($('shirt_size').value) === -1) fail('shirt_size', 'Choose your shirt size.');
+    if (!$('smartphone_confirmed').checked) fail('smartphone_confirmed', 'You need a smartphone to be a Scout.');
+    if (!$('age_confirmed').checked) fail('age_confirmed', 'You must be 18 or older to apply.');
+    if (!$('terms_accepted').checked) fail('terms_accepted', 'Tick the box to accept the agreement.');
+
+    var signed = $('signed_name').value;
+    if (!signed.trim()) fail('signed_name', 'Type your full name to sign.');
+    else if (norm(signed) !== norm(name)) fail('signed_name', 'This must match the name you entered at the top.');
+
+    if (first) first.focus();
+    return ok;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    statusEl.textContent = ''; statusEl.className = 'status';
+    if (!validate()) return;
+
+    // Spam trap: bots fill hidden fields. Pretend success, send nothing.
+    if ($('website').value) { showDone(); return; }
+
+    var payload = {
+      full_name: $('full_name').value.trim(),
+      phone: $('phone').value.trim(),
+      email: $('email').value.trim() || null,
+      town: $('town').value.trim(),
+      motivation: $('motivation').value.trim() || null,
+      shirt_size: $('shirt_size').value,
+      smartphone_confirmed: true,
+      age_confirmed: true,
+      terms_accepted: true,
+      signed_name: $('signed_name').value.trim(),
+      agreement_version: AGREEMENT_VERSION,
+      user_agent: (navigator.userAgent || '').slice(0, 300)
+    };
+
+    btn.disabled = true; btn.textContent = 'Sending...';
+    fetch(SUPABASE_URL + '/rest/v1/scout_applications', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Prefer': 'return=minimal' },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      if (res.status === 201) { showDone(); return; }
+      throw new Error('status ' + res.status);
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = 'Send my application';
+      statusEl.className = 'status bad';
+      statusEl.textContent = 'Your application did not send. Check your internet connection and try again. If it keeps failing, WhatsApp Damian on +27 76 199 9072.';
+    });
+  });
+
+  function showDone() {
+    $('formArea').style.display = 'none';
+    var d = $('doneArea'); d.style.display = 'block'; d.focus();
+    window.scrollTo({ top: 0 });
+  }
+})();
+</script>
+</body>
+</html>
